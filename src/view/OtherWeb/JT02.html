@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple Home - 智能家居，简单掌控</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义主题 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            apple: {
+              black: '#1D1D1F',
+              gray: '#86868B',
+              lightgray: '#F5F5F7',
+              blue: '#0066CC',
+              darkbg: '#1C1C1E',
+              cardbg: '#2C2C2E',
+              button: '#3A3A3C',
+              highlight: '#34C759', // 绿色强调色，用于状态指示
+              red: '#FF3B30' // 红色，用于警告
+            }
+          },
+          fontFamily: {
+            apple: ['-apple-system', 'BlinkMacSystemFont', 'PingFang SC', 'Helvetica Neue', 'Arial', 'sans-serif']
+          },
+          boxShadow: {
+            'apple': '0 10px 30px rgba(0, 0, 0, 0.1)',
+            'apple-sm': '0 4px 12px rgba(0, 0, 0, 0.05)',
+            'apple-hover': '0 15px 35px rgba(0, 0, 0, 0.15)'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-balance {
+        text-wrap: balance;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .bg-blur {
+        backdrop-filter: blur(20px);
+      }
+    }
+  </style>
+  
+  <style>
+    /* 基础动画定义 */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .scale-in {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .scale-in.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .slide-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .slide-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    /* 产品卡片动画 */
+    .product-card img {
+      transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    
+    .product-card:hover img {
+      transform: scale(1.07);
+    }
+    
+    /* 按钮动画 */
+    .scene-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .scene-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* 配件卡片动画 */
+    .accessory-card {
+      transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    
+    .accessory-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* 导航项动画 */
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #0066CC;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* 背景视差效果 */
+    .parallax-bg {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    /* 进度条动画 */
+    @keyframes progress {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    .progress-bar {
+      animation: progress 1.5s ease-out forwards;
+    }
+    
+    /* 浮动动画 */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .float-animation-delay-1 {
+      animation: float 6s ease-in-out 1s infinite;
+    }
+    
+    .float-animation-delay-2 {
+      animation: float 6s ease-in-out 2s infinite;
+    }
+  </style>
+</head>
+
+<body class="font-apple bg-apple-lightgray text-apple-black antialiased">
+  <!-- 导航栏 -->
+  <header class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 transition-all duration-300 shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <a href="#" class="text-apple-black text-xl font-semibold flex items-center">
+            <i class="fa fa-home mr-2"></i>
+            <span>Apple Home</span>
+          </a>
+        </div>
+        
+        <!-- 桌面导航 -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="http://localhost:5173/" class="nav-link text-apple-black hover:text-apple-blue transition-colors text-sm">Iphone 16pro</a>
+          <a href="/src/view/OtherWeb/JSZC.html" class="nav-link text-apple-black hover:text-apple-blue transition-colors text-sm">技术支持</a>
+          <a href="#" class="nav-link text-apple-blue hover:text-apple-blue transition-colors text-sm">家庭</a>
+          <a href="/src/view/OtherWeb/PlQ.html" class="nav-link text-apple-black hover:text-apple-blue transition-colors text-sm">讨论区</a>
+          <a href="/src/view/OtherWeb/YL02.html" class="nav-link text-apple-black hover:text-apple-blue transition-colors text-sm">Apple服务</a>
+        </nav>
+        
+        <div class="flex items-center space-x-6">
+          <a href="#" class="text-apple-black hover:text-apple-blue transition-colors">
+            <i class="fa fa-search text-lg"></i>
+          </a>
+          <a href="#" class="text-apple-black hover:text-apple-blue transition-colors">
+            <i class="fa fa-shopping-bag text-lg"></i>
+          </a>
+          
+          <!-- 移动端菜单按钮 -->
+          <button class="md:hidden text-apple-black hover:text-apple-blue transition-colors" id="menu-toggle">
+            <i class="fa fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div class="md:hidden hidden bg-white border-t absolute w-full z-50" id="mobile-menu">
+      <div class="container mx-auto px-4 py-3 space-y-3">
+        <a href="#products" class="block py-3 text-apple-black hover:text-apple-blue transition-colors">产品</a>
+        <a href="#features" class="block py-3 text-apple-black hover:text-apple-blue transition-colors">功能</a>
+        <a href="#accessories" class="block py-3 text-apple-black hover:text-apple-blue transition-colors">配件</a>
+        <a href="#automation" class="block py-3 text-apple-black hover:text-apple-blue transition-colors">自动化</a>
+        <a href="#setup" class="block py-3 text-apple-black hover:text-apple-blue transition-colors">设置</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main class="pt-16">
+    <!-- 英雄区域 -->
+    <section class="relative h-[95vh] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="https://picsum.photos/id/1067/1920/1080" alt="智能家居环境" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-apple-lightgray"></div>
+      </div>
+      
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold leading-tight mb-6 fade-in text-white text-shadow">
+          智能家居，<br class="md:hidden">简单掌控
+        </h1>
+        <p class="text-[clamp(1.1rem,2vw,1.5rem)] text-white/90 max-w-3xl mx-auto mb-10 fade-in" style="transition-delay: 0.2s">
+          用 Apple 设备打造你的智能家庭，一切尽在掌控，简单又安全。
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in" style="transition-delay: 0.4s">
+          <a href="#products" class="bg-white text-apple-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors btn-primary">
+            探索产品
+          </a>
+          <a href="#features" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white/10 transition-colors">
+            了解功能
+          </a>
+        </div>
+      </div>
+      
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#products" class="text-white/70 hover:text-white transition-colors">
+          <i class="fa fa-angle-down text-2xl"></i>
+        </a>
+      </div>
+    </section>
+    
+    <!-- 产品展示 -->
+    <section id="products" class="py-24 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-center mb-4 fade-in">
+          打造你的智能家庭中心
+        </h2>
+        <p class="text-xl text-center text-apple-gray max-w-3xl mx-auto mb-16 fade-in">
+          HomePod 和 HomePod mini 是你智能家庭的理想控制中心，通过 Siri 语音控制，轻松管理各种智能配件。
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl mx-auto">
+          <!-- HomePod -->
+          <div class="product-card text-center fade-in">
+            <div class="inline-block px-4 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-sm font-medium mb-6">
+              全新设计
+            </div>
+            <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold mb-4">HomePod</h3>
+            <p class="text-apple-gray text-lg mb-8">RMB 2299</p>
+            <div class="relative w-full h-[320px] sm:h-[420px] mb-8 rounded-3xl bg-apple-lightgray p-8 flex items-center justify-center overflow-hidden">
+              <img src="https://picsum.photos/id/160/600/600" alt="HomePod" class="max-h-full object-contain float-animation">
+            </div>
+            <p class="text-lg mb-8 text-balance leading-relaxed">
+              声声有天地。搭载空间音频和计算音频技术，带来震撼的音质体验，同时也是智能家居的控制中心。
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+              <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium flex items-center">
+                了解更多 <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+              <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium flex items-center">
+                购买 <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+              <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium flex items-center">
+                技术规格 <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- HomePod mini -->
+          <div class="product-card text-center fade-in" style="transition-delay: 0.4s">
+            <div class="inline-block px-4 py-1 bg-apple-highlight/10 text-apple-highlight rounded-full text-sm font-medium mb-6">
+              热销款
+            </div>
+            <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-semibold mb-4">HomePod mini</h3>
+            <p class="text-apple-gray text-lg mb-8">RMB 749</p>
+            <div class="relative w-full h-[320px] sm:h-[420px] mb-8 rounded-3xl bg-apple-lightgray p-8 flex items-center justify-center overflow-hidden">
+              <img src="https://picsum.photos/id/163/600/600" alt="HomePod mini" class="max-h-full object-contain float-animation-delay-1">
+            </div>
+            <p class="text-lg mb-8 text-balance leading-relaxed">
+              身材小巧，声音超震撼。轻松控制你的智能家居配件，支持多设备协同，打造全宅智能系统。
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+              <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium flex items-center">
+                了解更多 <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+              <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium flex items-center">
+                购买 <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+              <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium flex items-center">
+                技术规格 <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 产品对比 -->
+        <div class="max-w-4xl mx-auto mt-24 bg-apple-lightgray rounded-2xl p-8 shadow-apple-sm fade-in">
+          <h3 class="text-2xl font-bold text-center mb-10">产品参数对比</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full min-w-[600px]">
+              <thead>
+                <tr class="border-b border-gray-300">
+                  <th class="py-4 text-left text-apple-gray">特性</th>
+                  <th class="py-4 text-center">HomePod</th>
+                  <th class="py-4 text-center">HomePod mini</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-gray-200">
+                  <td class="py-4 text-apple-gray">尺寸</td>
+                  <td class="py-4 text-center">172 mm × 142 mm</td>
+                  <td class="py-4 text-center">84 mm × 97 mm</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-4 text-apple-gray">重量</td>
+                  <td class="py-4 text-center">2.3 kg</td>
+                  <td class="py-4 text-center">345 g</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-4 text-apple-gray">音频技术</td>
+                  <td class="py-4 text-center">空间音频、计算音频</td>
+                  <td class="py-4 text-center">360° 音频</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="py-4 text-apple-gray">智能助手</td>
+                  <td class="py-4 text-center">Siri</td>
+                  <td class="py-4 text-center">Siri</td>
+                </tr>
+                <tr>
+                  <td class="py-4 text-apple-gray">智能家居控制</td>
+                  <td class="py-4 text-center text-apple-highlight"><i class="fa fa-check"></i></td>
+                  <td class="py-4 text-center text-apple-highlight"><i class="fa fa-check"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 功能展示区 -->
+    <section id="features" class="py-24 bg-apple-lightgray overflow-hidden">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-center mb-4 fade-in">
+          一切尽在掌控
+        </h2>
+        <p class="text-xl text-center text-apple-gray max-w-3xl mx-auto mb-16 fade-in">
+          用 Home 应用，轻松管理和控制你的智能家居配件，随时随地掌控家中状况。
+        </p>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto mb-24">
+          <div class="order-2 lg:order-1">
+            <h3 class="text-2xl md:text-3xl font-bold mb-6 fade-in">直观的控制中心</h3>
+            <p class="text-lg text-apple-gray mb-8 fade-in leading-relaxed">
+              Home 应用将所有智能配件集中管理，一目了然。你可以快速查看设备状态，调整设置，或执行预设场景。无论在家中还是外出，都能轻松掌控一切。
+            </p>
+            
+            <div class="space-y-6 mb-8">
+              <div class="flex items-start fade-in" style="transition-delay: 0.1s">
+                <div class="mt-1 mr-4 text-apple-blue text-xl">
+                  <i class="fa fa-map-marker"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-xl mb-2">按房间分类</h4>
+                  <p class="text-apple-gray">将配件按房间分类管理，轻松切换不同空间的控制界面。</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start fade-in" style="transition-delay: 0.2s">
+                <div class="mt-1 mr-4 text-apple-blue text-xl">
+                  <i class="fa fa-sliders"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-xl mb-2">精确控制</h4>
+                  <p class="text-apple-gray">调节灯光亮度、色温，控制恒温器温度，开关智能门锁等。</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start fade-in" style="transition-delay: 0.3s">
+                <div class="mt-1 mr-4 text-apple-blue text-xl">
+                  <i class="fa fa-bell"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-xl mb-2">状态通知</h4>
+                  <p class="text-apple-gray">实时接收配件状态通知，如门锁状态变化、温湿度异常等。</p>
+                </div>
+              </div>
+            </div>
+            
+            <a href="#" class="inline-flex items-center text-apple-blue hover:text-apple-blue/80 font-medium text-lg fade-in" style="transition-delay: 0.4s">
+              探索 Home 应用功能
+              <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+          
+          <div class="order-1 lg:order-2">
+            <div class="app-mockup bg-apple-darkbg text-white rounded-[40px] p-6 sm:p-8 max-w-md mx-auto shadow-apple scale-in">
+              <!-- 状态栏 -->
+              <div class="flex justify-between items-center mb-6">
+                <div class="text-sm">9:41</div>
+                <div class="flex space-x-2">
+                  <i class="fa fa-signal"></i>
+                  <i class="fa fa-wifi"></i>
+                  <i class="fa fa-battery-full"></i>
+                </div>
+              </div>
+              
+              <!-- 应用标题 -->
+              <div class="text-center mb-8">
+                <h3 class="text-xl font-semibold">我的家</h3>
+              </div>
+              
+              <!-- 房间卡片 -->
+              <div class="space-y-4 mb-8">
+                <div class="room bg-apple-cardbg rounded-[18px] p-5 transition-all duration-300 hover:bg-opacity-80 cursor-pointer">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <h4 class="font-medium text-lg">客厅</h4>
+                      <p class="text-gray-300 mt-1">21.5°C · 45% 湿度</p>
+                    </div>
+                    <i class="fa fa-thermometer-half text-xl"></i>
+                  </div>
+                </div>
+                
+                <div class="room bg-apple-cardbg rounded-[18px] p-5 transition-all duration-300 hover:bg-opacity-80 cursor-pointer">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <h4 class="font-medium text-lg">灯光</h4>
+                      <p class="text-gray-300 mt-1">3 盏开着 · 亮度 70%</p>
+                    </div>
+                    <i class="fa fa-lightbulb-o text-xl"></i>
+                  </div>
+                </div>
+                
+                <div class="room bg-apple-cardbg rounded-[18px] p-5 transition-all duration-300 hover:bg-opacity-80 cursor-pointer">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <h4 class="font-medium text-lg">安全</h4>
+                      <p class="text-gray-300 mt-1">所有门窗已锁定</p>
+                    </div>
+                    <i class="fa fa-lock text-xl"></i>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 场景按钮 -->
+              <div class="mb-4">
+                <h4 class="font-medium mb-3">常用场景</h4>
+                <div class="flex flex-wrap gap-3">
+                  <button class="scene-btn bg-apple-button text-white px-5 py-3 rounded-[12px] text-sm font-medium">
+                    回到家
+                  </button>
+                  <button class="scene-btn bg-apple-button text-white px-5 py-3 rounded-[12px] text-sm font-medium">
+                    出门
+                  </button>
+                  <button class="scene-btn bg-apple-button text-white px-5 py-3 rounded-[12px] text-sm font-medium">
+                    睡觉
+                  </button>
+                  <button class="scene-btn bg-apple-button text-white px-5 py-3 rounded-[12px] text-sm font-medium">
+                    电影时间
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Siri 命令区域 -->
+        <div class="max-w-6xl mx-auto bg-white rounded-3xl overflow-hidden shadow-apple fade-in">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="p-8 md:p-12 flex flex-col justify-center">
+              <h3 class="text-2xl md:text-3xl font-bold mb-6">
+                说一声，让一切自动发生
+              </h3>
+              <p class="text-lg text-apple-gray mb-8 leading-relaxed">
+                通过 Siri 语音助手，无需动手即可控制家中的智能设备。无论是调整温度、开关灯光，还是启动预设场景，只需一声指令。
+              </p>
+              
+              <div class="space-y-4 mb-8">
+                <div class="bg-apple-lightgray p-4 rounded-xl">
+                  <p class="italic text-gray-700">"嘿 Siri，设置晚安场景"</p>
+                </div>
+                <div class="bg-apple-lightgray p-4 rounded-xl">
+                  <p class="italic text-gray-700">"嘿 Siri，将家里的空调设到 22 度"</p>
+                </div>
+                <div class="bg-apple-lightgray p-4 rounded-xl">
+                  <p class="italic text-gray-700">"嘿 Siri，关掉浴室的灯"</p>
+                </div>
+                <div class="bg-apple-lightgray p-4 rounded-xl">
+                  <p class="italic text-gray-700">"嘿 Siri，我出门了"</p>
+                </div>
+              </div>
+              
+              <a href="#" class="inline-flex items-center text-apple-blue hover:text-apple-blue/80 font-medium">
+                了解更多 Siri 命令
+                <i class="fa fa-chevron-right ml-1 text-xs"></i>
+              </a>
+            </div>
+            
+            <div class="bg-apple-black p-8 md:p-12 text-white flex items-center justify-center">
+              <div class="text-center">
+                <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <i class="fa fa-microphone text-3xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-4">多设备协同</h4>
+                <p class="text-gray-300 mb-6">
+                  在 iPhone、iPad、Apple Watch 或 Mac 上，都能通过 Siri 控制你的智能家居。
+                </p>
+                <div class="flex justify-center space-x-6">
+                  <i class="fa fa-mobile text-4xl"></i>
+                  <i class="fa fa-tablet text-4xl"></i>
+                  <i class="fa fa-clock-o text-4xl"></i>
+                  <i class="fa fa-laptop text-4xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 配件展示 -->
+    <section id="accessories" class="py-24 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-center mb-4 fade-in">
+          兼容配件
+        </h2>
+        <p class="text-xl text-center text-apple-gray max-w-3xl mx-auto mb-16 fade-in">
+          数百种智能家居配件与 Apple Home 完美兼容，打造个性化智能生活。
+        </p>
+        
+        <!-- 配件分类 -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12 fade-in">
+          <button class="px-6 py-2 bg-apple-blue text-white rounded-full text-sm font-medium">全部</button>
+          <button class="px-6 py-2 bg-apple-lightgray hover:bg-gray-200 rounded-full text-sm font-medium transition-colors">灯光照明</button>
+          <button class="px-6 py-2 bg-apple-lightgray hover:bg-gray-200 rounded-full text-sm font-medium transition-colors">安全防护</button>
+          <button class="px-6 py-2 bg-apple-lightgray hover:bg-gray-200 rounded-full text-sm font-medium transition-colors">温控设备</button>
+          <button class="px-6 py-2 bg-apple-lightgray hover:bg-gray-200 rounded-full text-sm font-medium transition-colors">门锁</button>
+          <button class="px-6 py-2 bg-apple-lightgray hover:bg-gray-200 rounded-full text-sm font-medium transition-colors">窗帘</button>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <!-- 配件1 -->
+          <div class="accessory-card bg-apple-lightgray rounded-2xl overflow-hidden shadow-apple-sm fade-in">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/180/600/400" alt="智能灯光" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+            </div>
+            <div class="p-6">
+              <div class="inline-block px-3 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-xs font-medium mb-3">
+                灯光照明
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Nanoleaf Essentials A60 E27 灯泡</h3>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+                </div>
+                <span class="text-apple-gray text-sm ml-2">(128 评价)</span>
+              </div>
+              <p class="text-apple-gray mb-4">支持 1600 万种颜色，可调色温，通过 Home 应用或 Siri 控制。</p>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">RMB 199</span>
+                <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium text-sm">
+                  查看详情
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 配件2 -->
+          <div class="accessory-card bg-apple-lightgray rounded-2xl overflow-hidden shadow-apple-sm fade-in" style="transition-delay: 0.2s">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/118/600/400" alt="安全摄像头" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+            </div>
+            <div class="p-6">
+              <div class="inline-block px-3 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-xs font-medium mb-3">
+                安全防护
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Logitech Circle View 安全摄像头</h3>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                </div>
+                <span class="text-apple-gray text-sm ml-2">(96 评价)</span>
+              </div>
+              <p class="text-apple-gray mb-4">1080p 高清视频，夜间模式，运动检测，支持 HomeKit Secure Video。</p>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">RMB 1299</span>
+                <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium text-sm">
+                  查看详情
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 配件3 -->
+          <div class="accessory-card bg-apple-lightgray rounded-2xl overflow-hidden shadow-apple-sm fade-in" style="transition-delay: 0.4s">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/96/600/400" alt="空气健康伴侣" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+            </div>
+            <div class="p-6">
+              <div class="inline-block px-3 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-xs font-medium mb-3">
+                环境监测
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Aqara TVOC 空气健康伴侣</h3>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+                <span class="text-apple-gray text-sm ml-2">(74 评价)</span>
+              </div>
+              <p class="text-apple-gray mb-4">监测空气质量、温湿度，支持自动联动控制其他智能设备。</p>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">RMB 229</span>
+                <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium text-sm">
+                  查看详情
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 配件4 -->
+          <div class="accessory-card bg-apple-lightgray rounded-2xl overflow-hidden shadow-apple-sm fade-in" style="transition-delay: 0.1s">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/164/600/400" alt="智能门锁" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+            </div>
+            <div class="p-6">
+              <div class="inline-block px-3 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-xs font-medium mb-3">
+                门锁
+              </div>
+              <h3 class="text-xl font-semibold mb-2">August Wi-Fi 智能门锁</h3>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+                  <i class="fa fa-star-o"></i>
+                </div>
+                <span class="text-apple-gray text-sm ml-2">(52 评价)</span>
+              </div>
+              <p class="text-apple-gray mb-4">远程控制门锁，查看开门记录，支持自动解锁和临时授权。</p>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">RMB 1599</span>
+                <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium text-sm">
+                  查看详情
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 配件5 -->
+          <div class="accessory-card bg-apple-lightgray rounded-2xl overflow-hidden shadow-apple-sm fade-in" style="transition-delay: 0.3s">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/201/600/400" alt="智能恒温器" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+            </div>
+            <div class="p-6">
+              <div class="inline-block px-3 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-xs font-medium mb-3">
+                温控设备
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Ecobee SmartThermostat 智能恒温器</h3>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                </div>
+                <span class="text-apple-gray text-sm ml-2">(68 评价)</span>
+              </div>
+              <p class="text-apple-gray mb-4">智能调节温度，学习你的生活习惯，节能环保，远程控制。</p>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">RMB 1899</span>
+                <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium text-sm">
+                  查看详情
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 配件6 -->
+          <div class="accessory-card bg-apple-lightgray rounded-2xl overflow-hidden shadow-apple-sm fade-in" style="transition-delay: 0.5s">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/239/600/400" alt="智能窗帘" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+            </div>
+            <div class="p-6">
+              <div class="inline-block px-3 py-1 bg-apple-blue/10 text-apple-blue rounded-full text-xs font-medium mb-3">
+                窗帘
+              </div>
+              <h3 class="text-xl font-semibold mb-2">Somfy 智能窗帘电机</h3>
+              <div class="flex items-center mb-4">
+                <div class="flex text-yellow-400">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-half-o"></i>
+                </div>
+                <span class="text-apple-gray text-sm ml-2">(46 评价)</span>
+              </div>
+              <p class="text-apple-gray mb-4">远程控制窗帘开关，支持定时和场景联动，静音设计。</p>
+              <div class="flex justify-between items-center">
+                <span class="font-semibold">RMB 1299</span>
+                <a href="#" class="text-apple-blue hover:text-apple-blue/80 font-medium text-sm">
+                  查看详情
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-16 fade-in">
+          <a href="#" class="inline-flex items-center bg-apple-black text-white px-8 py-3 rounded-full font-medium hover:bg-black/80 transition-colors btn-primary">
+            查看全部兼容配件
+            <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 自动化场景 -->
+    <section id="automation" class="py-24 bg-apple-lightgray relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-1/2 h-full bg-apple-black/5 -skew-x-12 transform origin-top-right z-0"></div>
+      
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-center mb-4 fade-in">
+          智能自动化，解放双手
+        </h2>
+        <p class="text-xl text-center text-apple-gray max-w-3xl mx-auto mb-16 fade-in">
+          设置自动化场景，让你的智能家居根据时间、位置或设备状态自动运行，无需手动操作。
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
+          <!-- 自动化1 -->
+          <div class="bg-white rounded-2xl p-8 shadow-apple-sm scale-in">
+            <div class="w-16 h-16 bg-apple-blue/10 rounded-full flex items-center justify-center text-apple-blue text-2xl mx-auto mb-6">
+              <i class="fa fa-sun-o"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-center">日出日落</h3>
+            <p class="text-apple-gray text-center">
+              根据日出日落时间自动开关灯光，调节窗帘，让家居环境与自然节奏同步。
+            </p>
+          </div>
+          
+          <!-- 自动化2 -->
+          <div class="bg-white rounded-2xl p-8 shadow-apple-sm scale-in" style="transition-delay: 0.2s">
+            <div class="w-16 h-16 bg-apple-blue/10 rounded-full flex items-center justify-center text-apple-blue text-2xl mx-auto mb-6">
+              <i class="fa fa-map-marker"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-center">位置感知</h3>
+            <p class="text-apple-gray text-center">
+              当你接近家时自动开灯、调节温度；离家时自动关闭设备、锁门，安全又节能。
+            </p>
+          </div>
+          
+          <!-- 自动化3 -->
+          <div class="bg-white rounded-2xl p-8 shadow-apple-sm scale-in" style="transition-delay: 0.4s">
+            <div class="w-16 h-16 bg-apple-blue/10 rounded-full flex items-center justify-center text-apple-blue text-2xl mx-auto mb-6">
+              <i class="fa fa-clock-o"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-center">定时场景</h3>
+            <p class="text-apple-gray text-center">
+              设置早晨唤醒、睡前模式、离家模式等定时场景，让生活更有规律。
+            </p>
+          </div>
+        </div>
+        
+        <!-- 场景示例 -->
+        <div class="max-w-6xl mx-auto">
+          <h3 class="text-2xl font-bold text-center mb-12 fade-in">热门自动化场景</h3>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <!-- 场景1 -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-apple-sm slide-in-left">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1060/800/500" alt="早晨唤醒场景" class="w-full h-full object-cover">
+              </div>
+              <div class="p-8">
+                <h4 class="text-xl font-semibold mb-3">早晨唤醒</h4>
+                <p class="text-apple-gray mb-6">
+                  每天早晨 7:00，窗帘逐渐打开，卧室灯光慢慢亮起，咖啡机自动启动，开始美好的一天。
+                </p>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <i class="fa fa-check text-apple-highlight mr-3"></i>
+                    <span>窗帘 - 7:00 开始打开，5分钟内完全打开</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fa fa-check text-apple-highlight mr-3"></i>
+                    <span>卧室灯 - 7:00 开始从 10% 亮度逐渐增至 70%</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fa fa-check text-apple-highlight mr-3"></i>
+                    <span>咖啡机 - 7:00 自动启动</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 场景2 -->
+            <div class="bg-white rounded-2xl overflow-hidden shadow-apple-sm slide-in-right">
+              <div class="h-48 overflow-hidden">
+                <img src="https://picsum.photos/id/1059/800/500" alt="回家场景" class="w-full h-full object-cover">
+              </div>
+              <div class="p-8">
+                <h4 class="text-xl font-semibold mb-3">回家模式</h4>
+                <p class="text-apple-gray mb-6">
+                  当你接近家门时，玄关灯自动亮起，客厅温度调节至舒适范围，智能门锁准备好迎接你。
+                </p>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <i class="fa fa-check text-apple-highlight mr-3"></i>
+                    <span>玄关灯 - 当你距离家 500 米时自动开启</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fa fa-check text-apple-highlight mr-3"></i>
+                    <span>恒温器 - 调节至 22°C</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fa fa-check text-apple-highlight mr-3"></i>
+                    <span>门锁 - 准备好通过 Apple Watch 解锁</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 设置指南 -->
+    <section id="setup" class="py-24 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-center mb-4 fade-in">
+          轻松设置，即刻体验
+        </h2>
+        <p class="text-xl text-center text-apple-gray max-w-3xl mx-auto mb-16 fade-in">
+          三步完成设置，开启你的智能家庭之旅。无需专业知识，简单几步即可上手。
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-20">
+          <!-- 步骤1 -->
+          <div class="bg-apple-lightgray rounded-2xl p-8 text-center shadow-apple-sm scale-in">
+            <div class="w-20 h-20 bg-apple-blue/10 rounded-full flex items-center justify-center text-apple-blue text-3xl font-bold mx-auto mb-6">
+              1
+            </div>
+            <h3 class="text-xl font-semibold mb-4">添加配件</h3>
+            <p class="text-apple-gray">
+              打开 Home 应用，点击 "+" 按钮，选择 "添加配件"，扫描配件上的二维码或使用自动识别。
+            </p>
+            <div class="mt-6">
+              <img src="https://picsum.photos/id/169/400/300" alt="添加配件" class="w-full h-40 object-cover rounded-xl">
+            </div>
+          </div>
+          
+          <!-- 步骤2 -->
+          <div class="bg-apple-lightgray rounded-2xl p-8 text-center shadow-apple-sm scale-in" style="transition-delay: 0.2s">
+            <div class="w-20 h-20 bg-apple-blue/10 rounded-full flex items-center justify-center text-apple-blue text-3xl font-bold mx-auto mb-6">
+              2
+            </div>
+            <h3 class="text-xl font-semibold mb-4">完成设置</h3>
+            <p class="text-apple-gray">
+              按照屏幕上的指引完成配件设置，为其命名并分配到相应的房间，设置个性化参数。
+            </p>
+            <div class="mt-6">
+              <img src="https://picsum.photos/id/175/400/300" alt="完成设置" class="w-full h-40 object-cover rounded-xl">
+            </div>
+          </div>
+          
+          <!-- 步骤3 -->
+          <div class="bg-apple-lightgray rounded-2xl p-8 text-center shadow-apple-sm scale-in" style="transition-delay: 0.4s">
+            <div class="w-20 h-20 bg-apple-blue/10 rounded-full flex items-center justify-center text-apple-blue text-3xl font-bold mx-auto mb-6">
+              3
+            </div>
+            <h3 class="text-xl font-semibold mb-4">开始使用</h3>
+            <p class="text-apple-gray">
+              现在你可以通过 Home 应用或 Siri 语音命令来控制你的智能配件，创建自动化场景。
+            </p>
+            <div class="mt-6">
+              <img src="https://picsum.photos/id/186/400/300" alt="开始使用" class="w-full h-40 object-cover rounded-xl">
+            </div>
+          </div>
+        </div>
+        
+        <!-- 视频教程 -->
+        <div class="max-w-4xl mx-auto fade-in">
+          <h3 class="text-2xl font-bold text-center mb-8">观看设置教程</h3>
+          <div class="relative rounded-2xl overflow-hidden shadow-apple aspect-video bg-apple-black">
+            <img src="https://picsum.photos/id/119/1200/675" alt="设置教程视频封面" class="w-full h-full object-cover opacity-80">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <button class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-apple-black hover:bg-gray-100 transition-colors">
+                <i class="fa fa-play text-2xl ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 购买区域 -->
+    <section class="py-24 bg-apple-black text-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold mb-6 fade-in">
+          开始打造你的智能家庭
+        </h2>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-12 fade-in">
+          从 HomePod 或 HomePod mini 开始，轻松构建你的智能家庭系统，体验科技带来的便捷生活。
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto mb-16">
+          <a href="#" class="block bg-white/10 hover:bg-white/20 rounded-2xl p-8 transition-colors fade-in">
+            <h3 class="text-2xl font-semibold mb-4">HomePod</h3>
+            <p class="text-3xl font-bold mb-6">RMB 2299</p>
+            <div class="text-gray-300 mb-8">
+              空间音频，计算音频，智能家庭控制中心
+            </div>
+            <div class="inline-block bg-white text-apple-black px-6 py-3 rounded-full font-medium btn-primary">
+              立即购买
+            </div>
+          </a>
+          
+          <a href="#" class="block bg-white/10 hover:bg-white/20 rounded-2xl p-8 transition-colors fade-in" style="transition-delay: 0.3s">
+            <h3 class="text-2xl font-semibold mb-4">HomePod mini</h3>
+            <p class="text-3xl font-bold mb-6">RMB 749</p>
+            <div class="text-gray-300 mb-8">
+              360° 音频，多设备协同，小巧强大
+            </div>
+            <div class="inline-block bg-white text-apple-black px-6 py-3 rounded-full font-medium btn-primary">
+              立即购买
+            </div>
+          </a>
+        </div>
+        
+        <div class="text-gray-400 max-w-2xl mx-auto fade-in">
+          <p>需要帮助选择适合你的智能家庭方案？<a href="#" class="text-white hover:underline">联系我们的专家</a>获取一对一咨询。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-apple-black text-white py-16 border-t border-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-10 mb-16">
+        <div class="md:col-span-2">
+          <a href="#" class="text-white text-xl font-semibold flex items-center mb-6">
+            <i class="fa fa-home mr-2"></i>
+            <span>Apple Home</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-md">
+            用 Apple 设备打造你的智能家庭，简单、安全、高效，让科技服务生活。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <i class="fa fa-wechat"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">产品</h4>
+          <ul class="space-y-3 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">HomePod</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">HomePod mini</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">兼容配件</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Compare</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">购买指南</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">功能</h4>
+          <ul class="space-y-3 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Home 应用</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Siri 控制</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">自动化场景</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">隐私与安全</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">多设备协同</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">支持</h4>
+          <ul class="space-y-3 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">设置指南</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">常见问题</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">联系我们</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">维修服务</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">社区论坛</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Apple Inc. 保留所有权利。</p>
+          <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+            <a href="#" class="hover:text-white transition-colors">隐私政策</a>
+            <a href="#" class="hover:text-white transition-colors">使用条款</a>
+            <a href="#" class="hover:text-white transition-colors">销售政策</a>
+            <a href="#" class="hover:text-white transition-colors">网站地图</a>
+            <a href="#" class="hover:text-white transition-colors">Cookie 政策</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 滚动动画
+    function checkScrollAnimations() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+      const scaleElements = document.querySelectorAll('.scale-in');
+      const slideRightElements = document.querySelectorAll('.slide-in-right');
+      const slideLeftElements = document.querySelectorAll('.slide-in-left');
+      
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      
+      [...fadeElements, ...scaleElements, ...slideRightElements, ...slideLeftElements].forEach(element => {
+        observer.observe(element);
+      });
+    }
+    
+    // 导航栏滚动效果
+    function handleNavScroll() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('shadow-md');
+        header.classList.remove('shadow-sm');
+      } else {
+        header.classList.remove('shadow-md');
+        header.classList.add('shadow-sm');
+      }
+    }
+    
+    // 初始化
+    window.addEventListener('load', () => {
+      checkScrollAnimations();
+      handleNavScroll();
+    });
+    
+    // 滚动事件监听
+    window.addEventListener('scroll', () => {
+      handleNavScroll();
+    });
+    
+    // 平滑滚动到锚点
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // 关闭移动菜单（如果打开）
+          mobileMenu.classList.add('hidden');
+          
+          // 滚动到目标位置
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

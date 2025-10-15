@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple 服务 - 中国</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            black: '#1D1D1F',
+                            gray: '#86868B',
+                            lightgray: '#F5F5F7',
+                            blue: '#0066CC',
+                            hoverblue: '#0071E3',
+                            gold: '#FFD700'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['SF Pro Display', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .bg-blur {
+                backdrop-filter: blur(20px);
+            }
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0; /* 初始隐藏，通过JS控制显示 */
+        }
+        
+        .service-card.visible {
+            opacity: 1;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #0066CC;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .feature-item {
+            transition: transform 0.2s ease;
+            opacity: 0;
+        }
+        
+        .feature-item.visible {
+            opacity: 1;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        .feature-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .testimonial-card {
+            transition: transform 0.3s ease;
+            opacity: 0;
+        }
+        
+        .testimonial-card.visible {
+            opacity: 1;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-white text-apple-black">
+    <!-- 导航栏 -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="bg-black/80 bg-blur text-white py-3 px-4 md:px-8">
+            <div class="container mx-auto flex items-center justify-between">
+    <!-- 保留左侧 Apple 图标 -->
+    <a href="#" class="text-2xl">
+        <i class="fa fa-apple"></i>
+    </a>
+    
+    <!-- 中间导航菜单，添加 justify-center 使其居中 -->
+    <nav class="hidden md:flex items-center space-x-6">
+        <a href="http://localhost:5173/" class="nav-link text-sm hover:text-white transition-colors">Iphone 16pro</a>
+        <a href="/src/view/OtherWeb/JSZC.html" class="nav-link text-sm hover:text-white transition-colors">技术支持</a>
+        <a href="/src/view/OtherWeb/JT02.html" class="nav-link text-sm hover:text-white transition-colors">家庭</a>
+        <a href="/src/view/OtherWeb/PLQ.html" class="nav-link text-sm hover:text-white transition-colors">讨论区</a>
+        <a href="#" class="block py-2 text-apple-blue font-semibold">Aplle 服务</a>
+    </nav>
+    
+   
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-white transition-colors">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#" class="hover:text-white transition-colors">
+                        <i class="fa fa-shopping-bag"></i>
+                    </a>
+                    <button class="md:hidden text-white" id="menuToggle">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div class="md:hidden bg-white shadow-lg absolute w-full left-0 top-full transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none" id="mobileMenu">
+            <div class="container mx-auto py-4 px-6 space-y-4">
+                <a href="#" class="block py-2 hover:text-apple-blue transition-colors">Mac</a>
+                <a href="#" class="block py-2 hover:text-apple-blue transition-colors">iPad</a>
+                <a href="#" class="block py-2 hover:text-apple-blue transition-colors">iPhone</a>
+                <a href="#" class="block py-2 hover:text-apple-blue transition-colors">Watch</a>
+                <a href="#" class="block py-2 hover:text-apple-blue transition-colors">AirPods</a>
+                <a href="#" class="block py-2 text-apple-blue font-semibold">服务</a>
+                <a href="#" class="block py-2 hover:text-apple-blue transition-colors">配件</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 英雄区域 -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://picsum.photos/id/1068/1920/1080" alt="Apple 服务展示" class="w-full h-full object-cover">
+                <div class="absolute inset-0 hero-gradient"></div>
+            </div>
+            <div class="container mx-auto px-6 z-10 text-center text-white">
+                <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-tight mb-6 animate-fade-in">
+                    创意与科技<br>在此交融
+                </h1>
+                <p class="text-[clamp(1rem,2vw,1.25rem)] max-w-2xl mx-auto mb-10 text-gray-100 animate-slide-up" style="animation-delay: 0.2s">
+                    探索 Apple 服务如何让每一天都更丰富精彩。音乐、游戏、视频、云存储，一切尽在其中。
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up" style="animation-delay: 0.4s">
+                    <a href="#services" class="bg-apple-blue hover:bg-apple-hoverblue text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                        探索服务
+                    </a>
+                    <a href="#plans" class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white px-8 py-3 rounded-full font-medium transition-all duration-300">
+                        查看套餐
+                    </a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+                <i class="fa fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- 服务概览 -->
+        <section id="services" class="py-20 bg-apple-lightgray">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold mb-4">Apple 服务，为你而来</h2>
+                    <p class="text-apple-gray text-lg max-w-2xl mx-auto">一站式体验 Apple 精选服务，从音乐、游戏到云存储，满足你的各种需求。</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Apple Music -->
+                    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md" data-delay="0">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/id/1074/600/400" alt="Apple Music" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <h3 class="text-xl font-semibold">Apple Music</h3>
+                                <span class="ml-3 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">新内容每周更新</span>
+                            </div>
+                            <p class="text-apple-gray mb-4">数千万首歌曲，无广告打扰。还有原创节目、音乐会直播和独家内容。支持离线收听和个性化推荐。</p>
+                            <div class="mb-4">
+                                <div class="flex items-center text-sm text-apple-gray mb-1">
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star-half-o text-apple-gold mr-1"></i>
+                                    <span class="ml-2">4.7 (120,000+ 评价)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-apple-blue">了解更多</span>
+                                <i class="fa fa-music text-2xl text-apple-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apple TV+ -->
+                    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md" data-delay="100">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/id/1025/600/400" alt="Apple TV+" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <h3 class="text-xl font-semibold">Apple TV+</h3>
+                                <span class="ml-3 bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">获奖内容</span>
+                            </div>
+                            <p class="text-apple-gray mb-4">观看荣获 Emmy、Golden Globe 等大奖的原创剧集、电影和纪录片。支持 4K HDR 和离线下载。</p>
+                            <div class="mb-4">
+                                <div class="flex items-center text-sm text-apple-gray mb-1">
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star-o text-apple-gold mr-1"></i>
+                                    <span class="ml-2">4.2 (85,000+ 评价)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-apple-blue">了解更多</span>
+                                <i class="fa fa-television text-2xl text-apple-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apple Arcade -->
+                    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md" data-delay="200">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/id/160/600/400" alt="Apple Arcade" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <h3 class="text-xl font-semibold">Apple Arcade</h3>
+                                <span class="ml-3 bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">无内购</span>
+                            </div>
+                            <p class="text-apple-gray mb-4">畅玩 200 多款无广告、无内购的精选游戏，由全球顶尖开发者打造。支持游戏进度跨设备同步。</p>
+                            <div class="mb-4">
+                                <div class="flex items-center text-sm text-apple-gray mb-1">
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star-half-o text-apple-gold mr-1"></i>
+                                    <span class="ml-2">4.6 (62,000+ 评价)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-apple-blue">了解更多</span>
+                                <i class="fa fa-gamepad text-2xl text-apple-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- iCloud+ -->
+                    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md" data-delay="300">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/id/180/600/400" alt="iCloud+" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <h3 class="text-xl font-semibold">iCloud+</h3>
+                                <span class="ml-3 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">隐私保护</span>
+                            </div>
+                            <p class="text-apple-gray mb-4">安全存储照片、文件等内容，并在所有设备上保持更新。包含隐藏邮件地址、自定义电子邮件域名等高级功能。</p>
+                            <div class="mb-4">
+                                <div class="flex items-center text-sm text-apple-gray mb-1">
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <span class="ml-2">4.9 (210,000+ 评价)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-apple-blue">了解更多</span>
+                                <i class="fa fa-cloud text-2xl text-apple-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apple Fitness+ -->
+                    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md" data-delay="400">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/id/176/600/400" alt="Apple Fitness+" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <h3 class="text-xl font-semibold">Apple Fitness+</h3>
+                                <span class="ml-3 bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">每日更新</span>
+                            </div>
+                            <p class="text-apple-gray mb-4">由世界级教练打造的各种健身课程，可与 Apple Watch 同步，实时追踪你的活动数据和心率。</p>
+                            <div class="mb-4">
+                                <div class="flex items-center text-sm text-apple-gray mb-1">
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star-o text-apple-gold mr-1"></i>
+                                    <span class="ml-2">4.3 (45,000+ 评价)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-apple-blue">了解更多</span>
+                                <i class="fa fa-heartbeat text-2xl text-apple-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apple News+ -->
+                    <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md" data-delay="500">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/id/24/600/400" alt="Apple News+" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-3">
+                                <h3 class="text-xl font-semibold">Apple News+</h3>
+                                <span class="ml-3 bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full">每日更新</span>
+                            </div>
+                            <p class="text-apple-gray mb-4">订阅即可畅读数百种杂志和热门新闻出版物，获取深度报道和分析。支持离线阅读和个性化推荐。</p>
+                            <div class="mb-4">
+                                <div class="flex items-center text-sm text-apple-gray mb-1">
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star-half-o text-apple-gold mr-1"></i>
+                                    <i class="fa fa-star-o text-apple-gold mr-1"></i>
+                                    <span class="ml-2">3.7 (32,000+ 评价)</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-apple-blue">了解更多</span>
+                                <i class="fa fa-newspaper-o text-2xl text-apple-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 特色功能 -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold mb-4">独特体验，与众不同</h2>
+                    <p class="text-apple-gray text-lg max-w-2xl mx-auto">Apple 服务专为 Apple 设备打造，带来无缝衔接的使用体验。</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div class="order-2 lg:order-1">
+                        <h3 class="text-2xl md:text-3xl font-semibold mb-6">空间音频，身临其境</h3>
+                        <p class="text-apple-gray text-lg mb-6">借助先进的空间音频技术，感受音乐、电影和电视节目带来的沉浸式体验。杜比全景声让声音从四面八方环绕着你，仿佛置身现场。</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start feature-item" data-delay="0">
+                                <i class="fa fa-check-circle text-apple-blue mt-1 mr-3"></i>
+                                <span>支持 AirPods Pro、AirPods Max 和其他兼容耳机</span>
+                            </li>
+                            <li class="flex items-start feature-item" data-delay="100">
+                                <i class="fa fa-check-circle text-apple-blue mt-1 mr-3"></i>
+                                <span>动态头部追踪，保持声音来自正确方向</span>
+                            </li>
+                            <li class="flex items-start feature-item" data-delay="200">
+                                <i class="fa fa-check-circle text-apple-blue mt-1 mr-3"></i>
+                                <span>广泛应用于 Apple Music、Apple TV+ 等服务</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <img src="https://picsum.photos/id/1071/800/600" alt="空间音频体验" class="rounded-2xl shadow-xl w-full">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <img src="https://picsum.photos/id/119/800/600" alt="多设备同步" class="rounded-2xl shadow-xl w-full">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-semibold mb-6">多设备同步，无缝衔接</h3>
+                        <p class="text-apple-gray text-lg mb-6">在 iPhone 上开始的内容，可在 iPad、Mac 或 Apple TV 上继续。iCloud 自动同步你的偏好设置、收藏内容和使用进度。</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start feature-item" data-delay="0">
+                                <i class="fa fa-check-circle text-apple-blue mt-1 mr-3"></i>
+                                <span>在所有设备上访问你的音乐库和播放列表</span>
+                            </li>
+                            <li class="flex items-start feature-item" data-delay="100">
+                                <i class="fa fa-check-circle text-apple-blue mt-1 mr-3"></i>
+                                <span>剧集和电影自动记录观看进度</span>
+                            </li>
+                            <li class="flex items-start feature-item" data-delay="200">
+                                <i class="fa fa-check-circle text-apple-blue mt-1 mr-3"></i>
+                                <span>跨设备共享订阅，最多支持 6 名家庭成员</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 用户评价 -->
+        <section class="py-20 bg-apple-lightgray">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold mb-4">用户的真实体验</h2>
+                    <p class="text-apple-gray text-lg max-w-2xl mx-auto">来自中国用户的真实评价和使用感受</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 评价 1 -->
+                    <div class="testimonial-card bg-white p-6 rounded-2xl shadow-md" data-delay="0">
+                        <div class="flex items-center mb-4">
+                            <img src="https://picsum.photos/id/64/100/100" alt="用户头像" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-semibold">李明</h4>
+                                <div class="flex text-apple-gold text-sm">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-apple-gray mb-3">"家庭方案太值了，我和家人共享一个订阅，每个人都能享受所有服务。Apple Music 的推荐算法非常精准，总能发现我喜欢的新歌。"</p>
+                        <p class="text-sm text-apple-gray">使用 Apple 服务 2 年</p>
+                    </div>
+                    
+                    <!-- 评价 2 -->
+                    <div class="testimonial-card bg-white p-6 rounded-2xl shadow-md" data-delay="150">
+                        <div class="flex items-center mb-4">
+                            <img src="https://picsum.photos/id/65/100/100" alt="用户头像" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-semibold">张婷</h4>
+                                <div class="flex text-apple-gold text-sm">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-apple-gray mb-3">"作为学生，25元/月的价格非常划算。Apple TV+ 的原创剧集质量很高，尤其是《 Ted Lasso 》让我爱不释手。空间音频的体验也很惊艳。"</p>
+                        <p class="text-sm text-apple-gray">使用 Apple 服务 1 年</p>
+                    </div>
+                    
+                    <!-- 评价 3 -->
+                    <div class="testimonial-card bg-white p-6 rounded-2xl shadow-md" data-delay="300">
+                        <div class="flex items-center mb-4">
+                            <img src="https://picsum.photos/id/91/100/100" alt="用户头像" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-semibold">王建国</h4>
+                                <div class="flex text-apple-gold text-sm">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-apple-gray mb-3">"iCloud+ 让我的照片和文件在所有设备上保持同步，非常方便。Apple Arcade 的游戏质量很高，没有烦人的广告和内购，很适合和孩子一起玩。"</p>
+                        <p class="text-sm text-apple-gray">使用 Apple 服务 3 年</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 价格方案 -->
+        <section id="plans" class="py-20 bg-apple-lightgray">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold mb-4">灵活方案，随心选择</h2>
+                    <p class="text-apple-gray text-lg max-w-2xl mx-auto">多种订阅方案满足个人和家庭需求，随时可以取消。</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 个人方案 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                        <div class="p-8 border-b">
+                            <h3 class="text-2xl font-semibold mb-2">个人方案</h3>
+                            <p class="text-apple-gray mb-4">适合个人使用的一站式服务</p>
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-bold">¥50</span>
+                                <span class="text-apple-gray ml-2">/月</span>
+                            </div>
+                            <p class="text-sm text-green-600 mt-2">新用户首月免费</p>
+                        </div>
+                        <div class="p-8">
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple Music 个人订阅</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple TV+</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple Arcade</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>iCloud+ 50GB 存储</span>
+                                </li>
+                                <li class="flex items-start text-apple-gray">
+                                    <i class="fa fa-times mt-1 mr-3"></i>
+                                    <span>家庭成员共享</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-apple-blue hover:bg-apple-hoverblue text-white py-3 rounded-full font-medium transition-colors">
+                                选择个人方案
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 家庭方案 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform scale-105 transition-all duration-300 hover:shadow-xl border-2 border-apple-blue relative">
+                        <div class="absolute top-0 right-0 bg-apple-blue text-white text-xs font-bold px-4 py-1">
+                            最受欢迎
+                        </div>
+                        <div class="p-8 border-b">
+                            <h3 class="text-2xl font-semibold mb-2">家庭方案</h3>
+                            <p class="text-apple-gray mb-4">最多 6 名家庭成员共享</p>
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-bold">¥70</span>
+                                <span class="text-apple-gray ml-2">/月</span>
+                            </div>
+                            <p class="text-sm text-green-600 mt-2">新用户首月免费</p>
+                        </div>
+                        <div class="p-8">
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple Music 家庭订阅</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple TV+</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple Arcade</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>iCloud+ 200GB 存储</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>最多 6 名家庭成员共享</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-apple-blue hover:bg-apple-hoverblue text-white py-3 rounded-full font-medium transition-colors">
+                                选择家庭方案
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 学生方案 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                        <div class="p-8 border-b">
+                            <h3 class="text-2xl font-semibold mb-2">学生方案</h3>
+                            <p class="text-apple-gray mb-4">为在校学生提供的优惠方案</p>
+                            <div class="flex items-baseline">
+                                <span class="text-4xl font-bold">¥25</span>
+                                <span class="text-apple-gray ml-2">/月</span>
+                            </div>
+                            <p class="text-sm text-green-600 mt-2">新用户首月免费</p>
+                        </div>
+                        <div class="p-8">
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple Music 学生订阅</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check text-apple-blue mt-1 mr-3"></i>
+                                    <span>Apple TV+（限时包含）</span>
+                                </li>
+                                <li class="flex items-start text-apple-gray">
+                                    <i class="fa fa-times mt-1 mr-3"></i>
+                                    <span>Apple Arcade</span>
+                                </li>
+                                <li class="flex items-start text-apple-gray">
+                                    <i class="fa fa-times mt-1 mr-3"></i>
+                                    <span>iCloud+ 存储</span>
+                                </li>
+                                <li class="flex items-start text-apple-gray">
+                                    <i class="fa fa-times mt-1 mr-3"></i>
+                                    <span>家庭成员共享</span>
+                                </li>
+                            </ul>
+                            <a href="#" class="block w-full text-center bg-apple-blue hover:bg-apple-hoverblue text-white py-3 rounded-full font-medium transition-colors">
+                                选择学生方案
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 行动召唤 -->
+        <section class="py-20 bg-black text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-semibold mb-6">开始你的 Apple 服务之旅</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-10">
+                    新用户可享受免费试用。无需信用卡，随时取消。
+                </p>
+                <a href="#" class="inline-block bg-apple-blue hover:bg-apple-hoverblue text-white px-10 py-4 rounded-full font-medium text-lg transition-all duration-300 transform hover:scale-105">
+                    免费试用 1 个月
+                </a>
+                <p class="text-gray-400 text-sm mt-4">
+                    试用期结束后将自动续订，除非提前取消。条款适用。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-apple-lightgray py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="font-semibold mb-4">服务</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">Apple Music</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">Apple TV+</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">Apple Arcade</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">iCloud+</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">Apple Fitness+</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">Apple News+</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">账户</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">管理你的 Apple ID</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">订阅管理</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">iCloud 设置</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">家人共享</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">支持</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">Apple 服务支持</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">联系我们</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">常见问题</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">关于 Apple</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">公司信息</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">新闻动态</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">职业机会</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-300 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-apple-gray text-sm mb-4 md:mb-0">
+                    © 2023 Apple Inc. 保留所有权利。
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                        <i class="fa fa-weibo"></i>
+                    </a>
+                    <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                        <i class="fa fa-wechat"></i>
+                    </a>
+                    <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                        <i class="fa fa-youtube-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/90', 'shadow-md');
+            } else {
+                navbar.classList.remove('bg-black/90', 'shadow-md');
+            }
+        });
+        
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        let menuOpen = false;
+        
+        menuToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                menuToggle.innerHTML = '<i class="fa fa-times"></i>';
+            } else {
+                mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                menuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果移动端菜单是打开的，点击后关闭
+                    if (menuOpen) {
+                        menuOpen = false;
+                        mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+                        mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                        menuToggle.innerHTML = '<i class="fa fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // 修复滚动动画导致的内容消失问题
+        // 使用 IntersectionObserver 监测元素是否进入视口
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -10% 0px', // 元素底部进入视口10%时触发
+            threshold: 0
+        };
+        
+        // 服务卡片动画
+        const serviceObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 添加延迟动画效果
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    serviceObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // 特性项目动画
+        const featureObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    featureObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // 用户评价动画
+        const testimonialObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    testimonialObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // 为元素添加观察者
+        document.querySelectorAll('.service-card').forEach(el => {
+            serviceObserver.observe(el);
+        });
+        
+        document.querySelectorAll('.feature-item').forEach(el => {
+            featureObserver.observe(el);
+        });
+        
+        document.querySelectorAll('.testimonial-card').forEach(el => {
+            testimonialObserver.observe(el);
+        });
+        
+        // 初始加载时检查已在视口内的元素
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.service-card, .feature-item, .testimonial-card').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const isVisible = (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                    );
+                    
+                    if (isVisible) {
+                        const delay = el.getAttribute('data-delay') || 0;
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, delay);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+    

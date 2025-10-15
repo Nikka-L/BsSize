@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple 社区 - 官方讨论区</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            blue: '#0071e3',
+                            lightblue: '#4285f4',
+                            gray: '#86868b',
+                            lightgray: '#f5f5f7',
+                            darkgray: '#3a3a3c',
+                            border: '#d2d2d7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-apple-darkgray antialiased">
+    <!-- 顶部导航栏 -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-apple-border transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+    <!-- 左侧：仅保留Logo -->
+    <a href="#" class="flex items-center">
+        <i class="fa fa-apple text-2xl mr-3"></i>
+        <span class="text-lg font-medium hidden sm:block">Apple 社区</span>
+    </a>
+    
+    <!-- 中间：导航菜单，通过 mx-auto 实现水平居中 -->
+    <nav class="hidden md:flex md:space-x-8 mx-auto">
+        <a href="http://localhost:5173/" class="text-apple-gray hover:text-apple-blue px-1 pt-1 font-medium transition-colors">Iphone 16pro</a>
+        <a href="/src/view/OtherWeb/JSZC.html" class="text-apple-gray hover:text-apple-blue px-1 pt-1 font-medium transition-colors">技术支持</a>
+        <a href="/src/view/OtherWeb/JT02.html" class="text-apple-gray hover:text-apple-blue px-1 pt-1 font-medium transition-colors">家庭</a>
+        <a href="#" class="text-apple-blue border-b-2 border-apple-blue px-1 pt-1 font-medium">讨论区</a>
+        <a href="/src/view/OtherWeb/YL02.html" class="text-apple-gray hover:text-apple-blue px-1 pt-1 font-medium transition-colors">Apple服务</a>
+    </nav>
+    
+    <!-- 右侧：搜索和用户菜单（保持不变） -->
+    <div class="flex items-center space-x-4">
+        <button class="p-2 text-apple-gray hover:text-apple-blue transition-colors">
+            <i class="fa fa-search"></i>
+        </button>
+        <button class="p-2 text-apple-gray hover:text-apple-blue transition-colors md:hidden">
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="hidden md:block">
+            <button class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                <i class="fa fa-user-circle-o mr-1"></i>
+                <span>登录</span>
+            </button>
+        </div>
+    </div>
+</div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- 左侧边栏 - 社区分类 -->
+            <aside class="lg:w-1/4 lg:sticky lg:top-24 lg:self-start">
+                <div class="bg-apple-lightgray rounded-lg p-5">
+                    <h2 class="text-lg font-semibold mb-4">社区分类</h2>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" class="flex items-center text-apple-blue font-medium">
+                                <i class="fa fa-comment-o w-6"></i>
+                                <span>所有讨论</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-mobile w-6 text-xl"></i>
+                                <span>iPhone</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-tablet w-6"></i>
+                                <span>iPad</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-laptop w-6"></i>
+                                <span>Mac</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-headphones w-6"></i>
+                                <span>AirPods</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-clock-o w-6"></i>
+                                <span>Watch</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-cloud w-6"></i>
+                                <span>iCloud</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center text-apple-gray hover:text-apple-blue transition-colors">
+                                <i class="fa fa-music w-6"></i>
+                                <span>Apple Music</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="mt-8 pt-6 border-t border-apple-border">
+                        <h3 class="font-medium mb-3">热门话题</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="bg-white text-apple-blue text-sm px-3 py-1 rounded-full hover:bg-apple-blue hover:text-white transition-colors">iOS 17</a>
+                            <a href="#" class="bg-white text-apple-blue text-sm px-3 py-1 rounded-full hover:bg-apple-blue hover:text-white transition-colors">iPhone 15</a>
+                            <a href="#" class="bg-white text-apple-blue text-sm px-3 py-1 rounded-full hover:bg-apple-blue hover:text-white transition-colors">MacBook Pro</a>
+                            <a href="#" class="bg-white text-apple-blue text-sm px-3 py-1 rounded-full hover:bg-apple-blue hover:text-white transition-colors">隐私设置</a>
+                            <a href="#" class="bg-white text-apple-blue text-sm px-3 py-1 rounded-full hover:bg-apple-blue hover:text-white transition-colors">数据迁移</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 右侧主内容 - 评论区 -->
+            <div class="lg:w-3/4">
+                <!-- 页面标题和过滤器 -->
+                <div class="mb-8">
+                    <h1 class="text-2xl md:text-3xl font-bold mb-4">Apple 社区讨论</h1>
+                    <p class="text-apple-gray mb-6">与其他 Apple 用户交流，分享技巧和解决问题</p>
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div class="flex space-x-2">
+                            <button class="bg-apple-blue text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors">
+                                发布新讨论
+                            </button>
+                            <button class="border border-apple-border text-apple-darkgray px-4 py-2 rounded-md hover:bg-apple-lightgray transition-colors">
+                                <i class="fa fa-filter mr-1"></i> 筛选
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <select class="appearance-none bg-white border border-apple-border text-apple-darkgray px-4 py-2 pr-8 rounded-md focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent">
+                                <option>最新发布</option>
+                                <option>最多回复</option>
+                                <option>最多查看</option>
+                                <option>未解决</option>
+                                <option>已解决</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-apple-gray">
+                                <i class="fa fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 讨论列表 -->
+                <div class="space-y-6">
+                    <!-- 讨论项 1 - 已解决 -->
+                    <article class="border border-apple-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded mb-2">已解决</span>
+                                    <h3 class="text-lg font-semibold mb-1">
+                                        <a href="#" class="text-apple-darkgray hover:text-apple-blue transition-colors">iPhone 15 Pro 相机无法正常工作，如何解决？</a>
+                                    </h3>
+                                    <div class="flex items-center text-apple-gray text-sm">
+                                        <span>发布于 2 天前</span>
+                                        <span class="mx-2">•</span>
+                                        <span>iPhone</span>
+                                        <span class="mx-2">•</span>
+                                        <span>by <a href="#" class="text-apple-blue hover:underline">张小明</a></span>
+                                    </div>
+                                </div>
+                                <img src="https://picsum.photos/id/64/40/40" alt="用户头像" class="w-10 h-10 rounded-full">
+                            </div>
+                            
+                            <p class="text-apple-darkgray mb-4 line-clamp-2">我的 iPhone 15 Pro 相机突然无法打开，屏幕显示黑色。我已经尝试过重启，但问题仍然存在。有人遇到过类似的问题吗？该如何解决？</p>
+                            
+                            <div class="flex flex-wrap items-center justify-between">
+                                <div class="flex items-center space-x-4 text-sm text-apple-gray">
+                                    <span class="flex items-center">
+                                        <i class="fa fa-eye mr-1"></i> 342
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa fa-comment-o mr-1"></i> 18
+                                    </span>
+                                </div>
+                                <div class="flex items-center mt-2 sm:mt-0">
+                                    <span class="text-sm text-apple-gray mr-2">最后回复：</span>
+                                    <a href="#" class="text-apple-blue text-sm hover:underline">李华</a>
+                                    <span class="text-sm text-apple-gray ml-2">1 小时前</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 讨论项 2 - 未解决 -->
+                    <article class="border border-apple-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded mb-2">未解决</span>
+                                    <h3 class="text-lg font-semibold mb-1">
+                                        <a href="#" class="text-apple-darkgray hover:text-apple-blue transition-colors">MacBook Pro M3 电池续航明显下降</a>
+                                    </h3>
+                                    <div class="flex items-center text-apple-gray text-sm">
+                                        <span>发布于 5 天前</span>
+                                        <span class="mx-2">•</span>
+                                        <span>Mac</span>
+                                        <span class="mx-2">•</span>
+                                        <span>by <a href="#" class="text-apple-blue hover:underline">王芳</a></span>
+                                    </div>
+                                </div>
+                                <img src="https://picsum.photos/id/65/40/40" alt="用户头像" class="w-10 h-10 rounded-full">
+                            </div>
+                            
+                            <p class="text-apple-darkgray mb-4 line-clamp-2">我上个月购买的 MacBook Pro M3，最近发现电池续航明显下降，充满电后只能使用4-5小时，远低于官方宣传的18小时。有什么方法可以改善电池续航吗？</p>
+                            
+                            <div class="flex flex-wrap items-center justify-between">
+                                <div class="flex items-center space-x-4 text-sm text-apple-gray">
+                                    <span class="flex items-center">
+                                        <i class="fa fa-eye mr-1"></i> 567
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa fa-comment-o mr-1"></i> 24
+                                    </span>
+                                </div>
+                                <div class="flex items-center mt-2 sm:mt-0">
+                                    <span class="text-sm text-apple-gray mr-2">最后回复：</span>
+                                    <a href="#" class="text-apple-blue text-sm hover:underline">赵伟</a>
+                                    <span class="text-sm text-apple-gray ml-2">昨天</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 讨论项 3 - 讨论中 -->
+                    <article class="border border-apple-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded mb-2">讨论中</span>
+                                    <h3 class="text-lg font-semibold mb-1">
+                                        <a href="#" class="text-apple-darkgray hover:text-apple-blue transition-colors">iOS 17 新功能体验分享</a>
+                                    </h3>
+                                    <div class="flex items-center text-apple-gray text-sm">
+                                        <span>发布于 1 周前</span>
+                                        <span class="mx-2">•</span>
+                                        <span>iOS</span>
+                                        <span class="mx-2">•</span>
+                                        <span>by <a href="#" class="text-apple-blue hover:underline">陈明</a></span>
+                                    </div>
+                                </div>
+                                <img src="https://picsum.photos/id/91/40/40" alt="用户头像" class="w-10 h-10 rounded-full">
+                            </div>
+                            
+                            <p class="text-apple-darkgray mb-4 line-clamp-2">升级到 iOS 17 已经有一周了，感觉待机时间有所提升，联系人海报功能很有趣。大家觉得这次更新最实用的功能是什么？有没有遇到什么兼容性问题？</p>
+                            
+                            <div class="flex flex-wrap items-center justify-between">
+                                <div class="flex items-center space-x-4 text-sm text-apple-gray">
+                                    <span class="flex items-center">
+                                        <i class="fa fa-eye mr-1"></i> 1243
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa fa-comment-o mr-1"></i> 87
+                                    </span>
+                                </div>
+                                <div class="flex items-center mt-2 sm:mt-0">
+                                    <span class="text-sm text-apple-gray mr-2">最后回复：</span>
+                                    <a href="#" class="text-apple-blue text-sm hover:underline">刘静</a>
+                                    <span class="text-sm text-apple-gray ml-2">3 小时前</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 讨论项 4 - 已解决 -->
+                    <article class="border border-apple-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded mb-2">已解决</span>
+                                    <h3 class="text-lg font-semibold mb-1">
+                                        <a href="#" class="text-apple-darkgray hover:text-apple-blue transition-colors">AirPods Pro 连接不稳定问题</a>
+                                    </h3>
+                                    <div class="flex items-center text-apple-gray text-sm">
+                                        <span>发布于 2 周前</span>
+                                        <span class="mx-2">•</span>
+                                        <span>AirPods</span>
+                                        <span class="mx-2">•</span>
+                                        <span>by <a href="#" class="text-apple-blue hover:underline">周健</a></span>
+                                    </div>
+                                </div>
+                                <img src="https://picsum.photos/id/22/40/40" alt="用户头像" class="w-10 h-10 rounded-full">
+                            </div>
+                            
+                            <p class="text-apple-darkgray mb-4 line-clamp-2">我的 AirPods Pro 最近经常断开连接，尤其是在运动时。尝试过重新配对，但问题依旧。有没有什么彻底解决的方法？</p>
+                            
+                            <div class="flex flex-wrap items-center justify-between">
+                                <div class="flex items-center space-x-4 text-sm text-apple-gray">
+                                    <span class="flex items-center">
+                                        <i class="fa fa-eye mr-1"></i> 876
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa fa-comment-o mr-1"></i> 32
+                                    </span>
+                                </div>
+                                <div class="flex items-center mt-2 sm:mt-0">
+                                    <span class="text-sm text-apple-gray mr-2">最后回复：</span>
+                                    <a href="#" class="text-apple-blue text-sm hover:underline">Apple 支持</a>
+                                    <span class="text-sm text-apple-gray ml-2">5 天前</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 讨论项 5 - 讨论中 -->
+                    <article class="border border-apple-border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded mb-2">讨论中</span>
+                                    <h3 class="text-lg font-semibold mb-1">
+                                        <a href="#" class="text-apple-darkgray hover:text-apple-blue transition-colors">Apple Watch Series 9 健身追踪准确性讨论</a>
+                                    </h3>
+                                    <div class="flex items-center text-apple-gray text-sm">
+                                        <span>发布于 3 周前</span>
+                                        <span class="mx-2">•</span>
+                                        <span>Watch</span>
+                                        <span class="mx-2">•</span>
+                                        <span>by <a href="#" class="text-apple-blue hover:underline">吴敏</a></span>
+                                    </div>
+                                </div>
+                                <img src="https://picsum.photos/id/62/40/40" alt="用户头像" class="w-10 h-10 rounded-full">
+                            </div>
+                            
+                            <p class="text-apple-darkgray mb-4 line-clamp-2">想和大家讨论一下 Apple Watch Series 9 的健身追踪准确性。我发现它记录的跑步距离和实际距离有明显差异，心率监测在高强度运动时也不太稳定。你们的使用体验如何？</p>
+                            
+                            <div class="flex flex-wrap items-center justify-between">
+                                <div class="flex items-center space-x-4 text-sm text-apple-gray">
+                                    <span class="flex items-center">
+                                        <i class="fa fa-eye mr-1"></i> 654
+                                    </span>
+                                    <span class="flex items-center">
+                                        <i class="fa fa-comment-o mr-1"></i> 43
+                                    </span>
+                                </div>
+                                <div class="flex items-center mt-2 sm:mt-0">
+                                    <span class="text-sm text-apple-gray mr-2">最后回复：</span>
+                                    <a href="#" class="text-apple-blue text-sm hover:underline">孙强</a>
+                                    <span class="text-sm text-apple-gray ml-2">2 天前</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 分页 -->
+                <div class="mt-10 flex justify-center">
+                    <nav class="inline-flex rounded-md shadow-sm" aria-label="分页">
+                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-apple-border bg-white text-sm font-medium text-apple-gray hover:bg-apple-lightgray">
+                            <i class="fa fa-chevron-left text-xs"></i>
+                        </a>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-apple-border bg-apple-blue text-sm font-medium text-white">
+                            1
+                        </a>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-apple-border bg-white text-sm font-medium text-apple-gray hover:bg-apple-lightgray">
+                            2
+                        </a>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-apple-border bg-white text-sm font-medium text-apple-gray hover:bg-apple-lightgray">
+                            3
+                        </a>
+                        <span class="relative inline-flex items-center px-4 py-2 border border-apple-border bg-white text-sm font-medium text-apple-gray">
+                            ...
+                        </span>
+                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-apple-border bg-white text-sm font-medium text-apple-gray hover:bg-apple-lightgray">
+                            12
+                        </a>
+                        <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-apple-border bg-white text-sm font-medium text-apple-gray hover:bg-apple-lightgray">
+                            <i class="fa fa-chevron-right text-xs"></i>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-apple-lightgray mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-apple-darkgray uppercase tracking-wider mb-4">社区</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">社区指南</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">帮助中心</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">联系我们</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">反馈建议</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-apple-darkgray uppercase tracking-wider mb-4">产品</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">iPhone</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">iPad</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">Mac</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">Apple Watch</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-apple-darkgray uppercase tracking-wider mb-4">资源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">官方教程</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">技术支持</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">开发者中心</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">Apple 商店</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-apple-darkgray uppercase tracking-wider mb-4">关注我们</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                            <i class="fa fa-weibo text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                            <i class="fa fa-wechat text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                            <i class="fa fa-youtube-play text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-blue transition-colors">
+                            <i class="fa fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-apple-gray text-sm">订阅我们的社区动态</p>
+                    <div class="mt-2 flex">
+                        <input type="email" placeholder="您的邮箱地址" class="flex-1 px-3 py-2 border border-apple-border rounded-l-md focus:outline-none focus:ring-2 focus:ring-apple-blue focus:border-transparent text-sm">
+                        <button class="bg-apple-blue text-white px-4 py-2 rounded-r-md hover:bg-opacity-90 transition-colors text-sm">
+                            订阅
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-apple-border mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-apple-gray text-sm">© 2023 Apple Inc. 保留所有权利。</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">隐私政策</a>
+                    <a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">使用条款</a>
+                    <a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">Cookie 政策</a>
+                    <a href="#" class="text-apple-gray hover:text-apple-blue text-sm transition-colors">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动时改变导航栏样式
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+
+        // 简单的讨论项交互效果
+        document.querySelectorAll('article').forEach(article => {
+            article.addEventListener('mouseenter', function() {
+                this.classList.add('transform', 'translate-y-[-2px]');
+            });
+            article.addEventListener('mouseleave', function() {
+                this.classList.remove('transform', 'translate-y-[-2px]');
+            });
+        });
+    </script>
+    
+</body>
+</html>

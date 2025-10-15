@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>支持资源 - Apple 支持</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            primary: '#0071e3',    // 苹果官方蓝
+                            secondary: '#f5f5f7',  // 浅灰背景
+                            dark: '#1d1d1f',       // 深灰文本
+                            gray: '#86868b',        // 浅灰文本
+                            border: '#d2d2d7',      // 边框灰
+                            hover: '#e8f0fe'        //  hover 背景
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'apple': '0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1)',
+                        'apple-hover': '0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .nav-underline {
+                position: relative;
+            }
+            .nav-underline::after {
+                content: '';
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background-color: theme('colors.apple.primary');
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .nav-underline:hover::after,
+            .nav-underline.active::after {
+                opacity: 1;
+            }
+            .card-hover {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: theme('boxShadow.apple-hover');
+            }
+            .video-thumbnail-overlay {
+                @apply absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black/30;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-apple-dark antialiased">
+    <!-- 顶部导航栏（固定） -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-apple-border transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- 左侧 Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center" aria-label="Apple 官网">
+                        <i class="fa fa-apple text-2xl text-apple-dark"></i>
+                    </a>
+                </div>
+
+                <!-- 中部导航（仅桌面端显示） -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="http://localhost:5173/" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">苹果16pro</a>
+                    <a href="#" class="text-apple-gray text-sm nav-underline active text-apple-primary transition-colors">技术支持</a>
+                    <a href="/src/view/OtherWeb/JT02.html" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">家庭</a>
+                    <a href="/src/view/OtherWeb/PLQ.html" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">讨论区</a>
+                    <a href="/src/view/OtherWeb/YL02.html" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">Apple服务</a>
+                
+                </nav>
+
+                <!-- 右侧工具按钮 -->
+                <div class="flex items-center space-x-5">
+                    <button class="p-2 text-apple-gray hover:text-apple-primary transition-colors" aria-label="搜索">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="p-2 text-apple-gray hover:text-apple-primary transition-colors" aria-label="购物袋">
+                        <i class="fa fa-shopping-bag"></i>
+                    </button>
+                    <button class="p-2 text-apple-gray hover:text-apple-primary transition-colors md:hidden" aria-label="菜单">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 二级导航（支持页面专属） -->
+    <nav class="pt-16 bg-white border-b border-apple-border">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-12">
+                <!-- 左侧导航项 -->
+                <div class="flex items-center space-x-6">
+                    <a href="/src/view/OtherWeb/JSZC.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">支持首页</a>
+                    <a href="/src/view/OtherWeb/JSZC_LXZC.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">联系支持</a>
+                    <a href="/src/view/OtherWeb/JSZC_FWYWX.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">服务与维修</a>
+                    <a href="/src/view/OtherWeb/JSZC_BZZT.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">保障状态</a>
+                    <a href="/src/view/OtherWeb/JSZC_ZY.html" class="text-apple-primary font-medium text-sm nav-underline active">资源</a>
+                </div>
+
+                <!-- 右侧帮助入口（仅桌面端） -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <span class="text-apple-gray text-sm">需要帮助？</span>
+                    <a href="contact-support.html" class="text-apple-primary hover:underline text-sm transition-colors">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区：资源 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+        <!-- 页面标题 -->
+        <section class="max-w-3xl mx-auto mb-12 text-center">
+            <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4 leading-tight">支持资源</h1>
+            <p class="text-apple-gray text-base">查找技术文档、视频教程、常见问题解答，自主解决产品使用问题</p>
+        </section>
+
+        <!-- 资源分类导航 -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <div class="flex flex-wrap gap-3 mb-8">
+                <a href="#documents" class="px-4 py-2 bg-apple-primary text-white text-xs font-medium rounded-full">所有资源</a>
+                <a href="#documents" class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">技术文档</a>
+                <a href="#videos" class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">视频教程</a>
+                <a href="#faq" class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">常见问题</a>
+                <a href="#downloads" class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">下载中心</a>
+            </div>
+
+            <!-- 搜索资源 -->
+            <div class="relative">
+                <input 
+                    type="text" 
+                    placeholder="搜索资源（如“iPhone 备份”、“Mac 安装系统”）" 
+                    class="w-full pl-10 pr-4 py-3 border border-apple-border rounded-lg focus:outline-none focus:ring-2 focus:ring-apple-primary focus:border-transparent text-sm"
+                >
+                <div class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-apple-gray">
+                    <i class="fa fa-search"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门技术文档 -->
+        <section id="documents" class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-xl font-bold mb-6">热门技术文档</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 文档卡片1 -->
+                <a href="#" class="block card-hover bg-white border border-apple-border rounded-xl p-6">
+                    <h3 class="text-sm font-bold mb-2">如何在 iPhone 上备份数据（iCloud 或电脑）</h3>
+                    <p class="text-apple-gray text-xs mb-4">详细介绍两种备份方式的操作步骤，确保数据安全</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-apple-gray">适用产品：iPhone</span>
+                        <span class="text-apple-gray">更新时间：2024-04-10</span>
+                    </div>
+                </a>
+                <!-- 文档卡片2 -->
+                <a href="#" class="block card-hover bg-white border border-apple-border rounded-xl p-6">
+                    <h3 class="text-sm font-bold mb-2">Mac 无法开机？尝试这些解决方案</h3>
+                    <p class="text-apple-gray text-xs mb-4">针对 Mac 无法开机、黑屏、卡在苹果Logo等问题的排查步骤</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-apple-gray">适用产品：Mac</span>
+                        <span class="text-apple-gray">更新时间：2024-03-25</span>
+                    </div>
+                </a>
+                <!-- 文档卡片3 -->
+                <a href="#" class="block card-hover bg-white border border-apple-border rounded-xl p-6">
+                    <h3 class="text-sm font-bold mb-2">iPad 屏幕触控无响应？修复方法</h3>
+                    <p class="text-apple-gray text-xs mb-4">包含重启、更新系统、恢复出厂设置等操作指南</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-apple-gray">适用产品：iPad</span>
+                        <span class="text-apple-gray">更新时间：2024-05-02</span>
+                    </div>
+                </a>
+                <!-- 文档卡片4 -->
+                <a href="#" class="block card-hover bg-white border border-apple-border rounded-xl p-6">
+                    <h3 class="text-sm font-bold mb-2">Apple Watch 无法连接 iPhone？排查步骤</h3>
+                    <p class="text-apple-gray text-xs mb-4">解决蓝牙连接、配对失败、同步异常等问题</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-apple-gray">适用产品：Apple Watch</span>
+                        <span class="text-apple-gray">更新时间：2024-04-18</span>
+                    </div>
+                </a>
+                <!-- 文档卡片5 -->
+                <a href="#" class="block card-hover bg-white border border-apple-border rounded-xl p-6">
+                    <h3 class="text-sm font-bold mb-2">AirPods 音质问题？常见解决方案</h3>
+                    <p class="text-apple-gray text-xs mb-4">清洁技巧、固件更新、重置方法和音频设置调整</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-apple-gray">适用产品：AirPods 系列</span>
+                        <span class="text-apple-gray">更新时间：2024-05-15</span>
+                    </div>
+                </a>
+                <!-- 文档卡片6 -->
+                <a href="#" class="block card-hover bg-white border border-apple-border rounded-xl p-6">
+                    <h3 class="text-sm font-bold mb-2">如何最大化延长 iPhone 电池寿命</h3>
+                    <p class="text-apple-gray text-xs mb-4">充电习惯、系统设置和使用技巧，延长电池健康度</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-apple-gray">适用产品：所有 iPhone</span>
+                        <span class="text-apple-gray">更新时间：2024-02-28</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#" class="text-apple-primary text-sm hover:underline">查看全部技术文档</a>
+            </div>
+        </section>
+
+        <!-- 视频教程 -->
+        <section id="videos" class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-xl font-bold mb-6">视频教程</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 视频卡片1 -->
+                <a href="#" class="block card-hover group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
+                        <img src="https://picsum.photos/id/1/400/225" alt="iPhone 备份教程" class="w-full aspect-video object-cover">
+                        <div class="video-thumbnail-overlay">
+                            <i class="fa fa-play text-white text-2xl bg-apple-primary rounded-full w-12 h-12 flex items-center justify-center"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-medium mb-1">iPhone 数据备份教程</h3>
+                    <p class="text-apple-gray text-xs">2:45 | 适用 iPhone 12 及以上</p>
+                </a>
+                <!-- 视频卡片2 -->
+                <a href="#" class="block card-hover group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
+                        <img src="https://picsum.photos/id/20/400/225" alt="Mac 系统更新" class="w-full aspect-video object-cover">
+                        <div class="video-thumbnail-overlay">
+                            <i class="fa fa-play text-white text-2xl bg-apple-primary rounded-full w-12 h-12 flex items-center justify-center"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-medium mb-1">Mac 如何更新到最新系统</h3>
+                    <p class="text-apple-gray text-xs">3:12 | 适用所有 Mac</p>
+                </a>
+                <!-- 视频卡片3 -->
+                <a href="#" class="block card-hover group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
+                        <img src="https://picsum.photos/id/48/400/225" alt="Apple Watch 配对" class="w-full aspect-video object-cover">
+                        <div class="video-thumbnail-overlay">
+                            <i class="fa fa-play text-white text-2xl bg-apple-primary rounded-full w-12 h-12 flex items-center justify-center"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-medium mb-1">Apple Watch 首次配对 iPhone</h3>
+                    <p class="text-apple-gray text-xs">2:18 | 适用 Watch Series 5 及以上</p>
+                </a>
+                <!-- 视频卡片4 -->
+                <a href="#" class="block card-hover group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
+                        <img src="https://picsum.photos/id/96/400/225" alt="AirPods 设置" class="w-full aspect-video object-cover">
+                        <div class="video-thumbnail-overlay">
+                            <i class="fa fa-play text-white text-2xl bg-apple-primary rounded-full w-12 h-12 flex items-center justify-center"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-medium mb-1">AirPods 功能设置全指南</h3>
+                    <p class="text-apple-gray text-xs">4:05 | 适用 AirPods Pro 2</p>
+                </a>
+                <!-- 视频卡片5 -->
+                <a href="#" class="block card-hover group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
+                        <img src="https://picsum.photos/id/25/400/225" alt="iPad 分屏" class="w-full aspect-video object-cover">
+                        <div class="video-thumbnail-overlay">
+                            <i class="fa fa-play text-white text-2xl bg-apple-primary rounded-full w-12 h-12 flex items-center justify-center"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-medium mb-1">iPad 分屏多任务使用技巧</h3>
+                    <p class="text-apple-gray text-xs">3:42 | 适用 iPadOS 16 及以上</p>
+                </a>
+                <!-- 视频卡片6 -->
+                <a href="#" class="block card-hover group">
+                    <div class="relative rounded-xl overflow-hidden mb-3">
+                        <img src="https://picsum.photos/id/60/400/225" alt="iCloud 设置" class="w-full aspect-video object-cover">
+                        <div class="video-thumbnail-overlay">
+                            <i class="fa fa-play text-white text-2xl bg-apple-primary rounded-full w-12 h-12 flex items-center justify-center"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-sm font-medium mb-1">iCloud 存储空间管理技巧</h3>
+                    <p class="text-apple-gray text-xs">2:58 | 适用所有 Apple 设备</p>
+                </a>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#" class="text-apple-primary text-sm hover:underline">查看全部视频教程</a>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section id="faq" class="max-w-4xl mx-auto mb-16">
+            <h2 class="text-xl font-bold mb-6">常见问题</h2>
+            
+            <!-- 问题分类 -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <button class="px-4 py-2 bg-apple-primary text-white text-xs font-medium rounded-full">全部问题</button>
+                <button class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">账户与密码</button>
+                <button class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">设备使用</button>
+                <button class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">网络与连接</button>
+                <button class="px-4 py-2 bg-white text-apple-gray text-xs font-medium rounded-full hover:bg-apple-secondary">账单与订阅</button>
+            </div>
+            
+            <!-- 问题列表 -->
+            <div class="space-y-4">
+                <!-- 问题1 -->
+                <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left focus:outline-none faq-toggle">
+                        <span class="text-sm font-medium">如何重置我的 Apple ID 密码？</span>
+                        <i class="fa fa-chevron-down text-apple-gray transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-6 hidden faq-content">
+                        <p class="text-apple-gray text-xs mb-4">您可以通过以下方式重置 Apple ID 密码：</p>
+                        <ol class="list-decimal pl-5 space-y-2 text-xs text-apple-gray">
+                            <li>在 iPhone 或 iPad 上：设置 > [您的姓名] > 密码与安全性 > 更改密码</li>
+                            <li>在 Mac 上：苹果菜单 > 系统设置 > [您的姓名] > 密码与安全性 > 更改密码</li>
+                            <li>在网页上：访问 <a href="#" class="text-apple-primary hover:underline">appleid.apple.com</a>，登录后选择"密码与安全性"进行更改</li>
+                            <li>如果无法登录：访问 Apple ID 账户页面，点击"忘记 Apple ID 或密码"，按照提示操作</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- 问题2 -->
+                <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left focus:outline-none faq-toggle">
+                        <span class="text-sm font-medium">iPhone 电池续航短怎么办？</span>
+                        <i class="fa fa-chevron-down text-apple-gray transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-6 hidden faq-content">
+                        <p class="text-apple-gray text-xs mb-4">如果您的 iPhone 电池续航时间比预期短，可以尝试以下方法：</p>
+                        <ul class="list-disc pl-5 space-y-2 text-xs text-apple-gray">
+                            <li>检查电池健康：设置 > 电池 > 电池健康与充电，查看最大容量</li>
+                            <li>关闭不必要的功能：如蓝牙、Wi-Fi、定位服务（不使用时）</li>
+                            <li>降低屏幕亮度或开启自动亮度调节</li>
+                            <li>关闭后台应用刷新：设置 > 通用 > 后台应用刷新</li>
+                            <li>更新至最新版本的 iOS</li>
+                            <li>如果电池最大容量低于 80%，建议更换电池</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 问题3 -->
+                <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left focus:outline-none faq-toggle">
+                        <span class="text-sm font-medium">如何取消 Apple 订阅服务？</span>
+                        <i class="fa fa-chevron-down text-apple-gray transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-6 hidden faq-content">
+                        <p class="text-apple-gray text-xs mb-4">您可以通过以下方式取消 Apple 订阅：</p>
+                        <p class="text-xs font-medium mb-2">在 iPhone 或 iPad 上：</p>
+                        <ol class="list-decimal pl-5 space-y-2 text-xs text-apple-gray mb-4">
+                            <li>打开"设置"，点击顶部的您的姓名</li>
+                            <li>点击"订阅"</li>
+                            <li>选择您要取消的订阅</li>
+                            <li>点击"取消订阅"并确认</li>
+                        </ol>
+                        <p class="text-xs font-medium mb-2">在 Mac 上：</p>
+                        <ol class="list-decimal pl-5 space-y-2 text-xs text-apple-gray">
+                            <li>打开 App Store</li>
+                            <li>点击右上角的您的头像</li>
+                            <li>点击"账户设置"</li>
+                            <li>在"订阅"部分，点击"管理"</li>
+                            <li>选择您要取消的订阅，点击"编辑"，然后点击"取消订阅"</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- 问题4 -->
+                <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left focus:outline-none faq-toggle">
+                        <span class="text-sm font-medium">Mac 无法连接到 Wi-Fi 怎么办？</span>
+                        <i class="fa fa-chevron-down text-apple-gray transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-6 hidden faq-content">
+                        <p class="text-apple-gray text-xs mb-4">如果您的 Mac 无法连接到 Wi-Fi，请尝试以下步骤：</p>
+                        <ul class="list-disc pl-5 space-y-2 text-xs text-apple-gray">
+                            <li>检查 Wi-Fi 路由器是否正常工作，尝试重启路由器</li>
+                            <li>点击屏幕右上角的 Wi-Fi 图标，关闭后重新打开</li>
+                            <li>重启您的 Mac</li>
+                            <li>检查是否输入了正确的 Wi-Fi 密码</li>
+                            <li>移除并重新加入网络：点击 Wi-Fi 图标 > 网络偏好设置 > 选择网络 > 点击减号移除 > 点击加号重新添加</li>
+                            <li>更新 macOS 至最新版本</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 问题5 -->
+                <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                    <button class="w-full flex justify-between items-center p-6 text-left focus:outline-none faq-toggle">
+                        <span class="text-sm font-medium">如何将旧 iPhone 的数据迁移到新 iPhone？</span>
+                        <i class="fa fa-chevron-down text-apple-gray transition-transform duration-300"></i>
+                    </button>
+                    <div class="px-6 pb-6 hidden faq-content">
+                        <p class="text-apple-gray text-xs mb-4">您可以使用以下方法将数据从旧 iPhone 迁移到新 iPhone：</p>
+                        <p class="text-xs font-medium mb-2">快速开始迁移：</p>
+                        <ol class="list-decimal pl-5 space-y-2 text-xs text-apple-gray mb-4">
+                            <li>将新旧 iPhone 放在一起，打开新 iPhone 并激活至"快速开始"界面</li>
+                            <li>在旧 iPhone 上出现的弹出窗口中点击"继续"</li>
+                            <li>使用旧 iPhone 扫描新 iPhone 上的动画</li>
+                            <li>按照提示输入旧 iPhone 的密码，设置 Face ID 或 Touch ID</li>
+                            <li>选择"从 iPhone 传输"，然后等待迁移完成</li>
+                        </ol>
+                        <p class="text-xs font-medium mb-2">其他方法：</p>
+                        <ul class="list-disc pl-5 space-y-2 text-xs text-apple-gray">
+                            <li>iCloud 恢复：使用 iCloud 备份恢复到新 iPhone</li>
+                            <li>电脑恢复：通过 iTunes 或 Finder 从备份恢复</li>
+                            <li>手动转移：通过 AirDrop 或其他方式手动转移部分数据</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="text-apple-primary text-sm hover:underline">查看全部常见问题</a>
+            </div>
+        </section>
+
+        <!-- 下载中心 -->
+        <section id="downloads" class="max-w-4xl mx-auto">
+            <h2 class="text-xl font-bold mb-6">下载中心</h2>
+            <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-apple-secondary">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-semibold text-apple-dark">资源名称</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-apple-dark">适用产品</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-apple-dark">文件大小</th>
+                            <th class="px-6 py-4 text-xs font-semibold text-apple-dark">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-apple-border">
+                        <tr class="hover:bg-apple-hover transition-colors">
+                            <td class="px-6 py-4 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fa fa-mobile text-apple-primary mr-3 text-xl"></i>
+                                    <div>
+                                        <p class="font-medium">Apple 支持 App（iOS）</p>
+                                        <p class="text-apple-gray text-xs">版本 5.2.1</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">iPhone、iPad</td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">8.5 MB</td>
+                            <td class="px-6 py-4 text-sm">
+                                <a href="#" class="text-apple-primary hover:underline">下载</a>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-apple-hover transition-colors">
+                            <td class="px-6 py-4 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fa fa-windows text-apple-primary mr-3 text-xl"></i>
+                                    <div>
+                                        <p class="font-medium">iTunes（Windows）</p>
+                                        <p class="text-apple-gray text-xs">版本 12.12.9</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">Windows 10/11</td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">120 MB</td>
+                            <td class="px-6 py-4 text-sm">
+                                <a href="#" class="text-apple-primary hover:underline">下载</a>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-apple-hover transition-colors">
+                            <td class="px-6 py-4 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fa fa-laptop text-apple-primary mr-3 text-xl"></i>
+                                    <div>
+                                        <p class="font-medium">macOS Ventura 安装镜像</p>
+                                        <p class="text-apple-gray text-xs">版本 13.4</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">Mac</td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">12 GB</td>
+                            <td class="px-6 py-4 text-sm">
+                                <a href="#" class="text-apple-primary hover:underline">下载</a>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-apple-hover transition-colors">
+                            <td class="px-6 py-4 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fa fa-file-pdf-o text-apple-primary mr-3 text-xl"></i>
+                                    <div>
+                                        <p class="font-medium">iPhone 16 Pro 用户手册</p>
+                                        <p class="text-apple-gray text-xs">PDF 格式</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">所有设备</td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">8.2 MB</td>
+                            <td class="px-6 py-4 text-sm">
+                                <a href="#" class="text-apple-primary hover:underline">下载</a>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-apple-hover transition-colors">
+                            <td class="px-6 py-4 text-sm">
+                                <div class="flex items-center">
+                                    <i class="fa fa-file-zip-o text-apple-primary mr-3 text-xl"></i>
+                                    <div>
+                                        <p class="font-medium">Apple 设备驱动程序包</p>
+                                        <p class="text-apple-gray text-xs">适用于 Windows</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">Windows 7/8/10/11</td>
+                            <td class="px-6 py-4 text-sm text-apple-gray">45 MB</td>
+                            <td class="px-6 py-4 text-sm">
+                                <a href="#" class="text-apple-primary hover:underline">下载</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-apple-secondary pt-12 pb-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 页脚导航网格 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mb-10">
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">商店与产品</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple Store 商店</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Mac</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">iPad</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">iPhone</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Watch</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">AirPods</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">服务与支持</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple ID</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">iCloud</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">账单与订阅</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">AppleCare+</a></li>
+                        <li><a href="service-repair.html" class="text-apple-gray hover:text-apple-primary transition-colors">维修与服务</a></li>
+                        <li><a href="contact-support.html" class="text-apple-gray hover:text-apple-primary transition-colors">联系支持</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">企业与教育</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 商务</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 教育</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 校园教务管理</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 开发者</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">App Store</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">关于 Apple</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">新闻room</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">可持续性</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">隐私</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">企业责任</a></li>
+                        <li><a href="contact-support.html" class="text-apple-gray hover:text-apple-primary transition-colors">联系 Apple</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 sm:col-span-3 md:col-span-2">
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">关注与订阅</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="微博">
+                            <i class="fa fa-weibo text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="微信">
+                            <i class="fa fa-wechat text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="YouTube">
+                            <i class="fa fa-youtube-play text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="Twitter">
+                            <i class="fa fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="订阅 Apple 电子通讯" class="flex-1 px-3 py-2 border border-apple-border rounded-md focus:outline-none focus:ring-2 focus:ring-apple-primary focus:border-transparent text-sm bg-white">
+                        <button class="px-4 py-2 bg-apple-primary text-white text-sm font-medium rounded-md hover:bg-opacity-90 transition-colors whitespace-nowrap">
+                            订阅
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 页脚底部信息 -->
+            <div class="border-t border-apple-border pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <p class="text-apple-gray text-xs">© 2024 Apple Inc. 保留所有权利。</p>
+                    <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs">
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">隐私政策</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">使用条款</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">销售政策</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">法律信息</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">网站地图</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">中国大陆</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 交互脚本 -->
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 常见问题折叠面板
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                // 切换内容显示/隐藏
+                content.classList.toggle('hidden');
+                
+                // 旋转图标
+                if (!content.classList.contains('hidden')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0)';
+                }
+            });
+        });
+
+        // 资源分类切换
+        const categoryButtons = document.querySelectorAll('a[href^="#"], button[class*="rounded-full"]');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的活跃状态
+                document.querySelectorAll('button[class*="rounded-full"]').forEach(btn => {
+                    btn.classList.remove('bg-apple-primary', 'text-white');
+                    btn.classList.add('bg-white', 'text-apple-gray', 'hover:bg-apple-secondary');
+                });
+                
+                // 为当前点击的按钮添加活跃状态
+                if (this.tagName === 'BUTTON') {
+                    this.classList.remove('bg-white', 'text-apple-gray', 'hover:bg-apple-secondary');
+                    this.classList.add('bg-apple-primary', 'text-white');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    

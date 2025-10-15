@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apple 支持 - 官方帮助中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            primary: '#0071e3',    // 苹果官方蓝
+                            secondary: '#f5f5f7',  // 浅灰背景
+                            dark: '#1d1d1f',       // 深灰文本
+                            gray: '#86868b',        // 浅灰文本
+                            border: '#d2d2d7',      // 边框灰
+                            hover: '#e8f0fe'        //  hover 背景
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'apple': '0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1)',
+                        'apple-hover': '0 4px 12px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .nav-underline {
+                position: relative;
+            }
+            .nav-underline::after {
+                content: '';
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background-color: theme('colors.apple.primary');
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .nav-underline:hover::after,
+            .nav-underline.active::after {
+                opacity: 1;
+            }
+            .card-hover {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: theme('boxShadow.apple-hover');
+            }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-apple-dark antialiased">
+    <!-- 顶部导航栏（固定） -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-apple-border transition-all duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8" >
+            <div class="flex items-center justify-between h-16">
+                <!-- 左侧 Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center" aria-label="Apple 官网">
+                        <i class="fa fa-apple text-2xl text-apple-dark"></i>
+                    </a>
+                </div>
+
+                <!-- 中部导航（仅桌面端显示） -->
+                <nav class="hidden md:flex items-center space-x-8" >
+                    <a href="http://localhost:5173/" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">苹果16pro</a>
+                    <a href="#" class="text-apple-gray text-sm nav-underline active text-apple-primary transition-colors">技术支持</a>
+                    <a href="/src/view/OtherWeb/JT02.html" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">家庭</a>
+                    <a href="/src/view/OtherWeb/PLQ.html" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">讨论区</a>
+                    <a href="/src/view/OtherWeb/YL02.html" class="text-apple-gray text-sm nav-underline hover:text-apple-primary transition-colors">Apple服务</a>
+                    <a href="#" class="text-apple-gray text-sm nav-underline active text-apple-primary transition-colors"></a>
+                </nav>
+
+                <!-- 右侧工具按钮 -->
+                <div class="flex items-center space-x-5">
+                    <button class="p-2 text-apple-gray hover:text-apple-primary transition-colors" aria-label="搜索">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="p-2 text-apple-gray hover:text-apple-primary transition-colors" aria-label="购物袋">
+                        <i class="fa fa-shopping-bag"></i>
+                    </button>
+                    <button class="p-2 text-apple-gray hover:text-apple-primary transition-colors md:hidden" aria-label="菜单">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 二级导航（支持页面专属） -->
+    <nav class="pt-16 bg-white border-b border-apple-border">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-12">
+                <!-- 左侧导航项 -->
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-apple-primary font-medium text-sm nav-underline active">支持首页</a>
+                    <a href="/src/view/OtherWeb/JSZC_LXZC.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">联系支持</a>
+                    <a href="/src/view/OtherWeb/JSZC_FWYWX.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">服务与维修</a>
+                    <a href="/src/view/OtherWeb/JSZC_BZZT.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">保障状态</a>
+                    <a href="/src/view/OtherWeb/JSZC_ZY.html" class="text-apple-gray hover:text-apple-primary text-sm transition-colors">资源</a>
+                </div>
+
+                <!-- 右侧帮助入口（仅桌面端） -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <span class="text-apple-gray text-sm">需要帮助？</span>
+                    <a href="#contact" class="text-apple-primary hover:underline text-sm transition-colors">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+        <!-- 页面标题与搜索区 -->
+        <section class="max-w-3xl mx-auto mb-12">
+            <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-center mb-6 leading-tight">获取支持</h1>
+            <div class="relative">
+                <input 
+                    type="text" 
+                    placeholder="描述您遇到的问题，或搜索文章、联系选项和更多内容" 
+                    class="w-full pl-10 pr-4 py-3.5 border border-apple-border rounded-lg focus:outline-none focus:ring-2 focus:ring-apple-primary focus:border-transparent text-base transition-all"
+                    aria-label="搜索支持内容"
+                >
+                <div class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-apple-gray">
+                    <i class="fa fa-search text-lg"></i>
+                </div>
+            </div>
+            <!-- 热门搜索标签（桌面端） -->
+            <div class="flex flex-wrap justify-center gap-2 mt-4 text-sm hidden md:flex">
+                <a href="#" class="text-apple-primary hover:underline px-2 py-1">忘记 Apple 账户密码</a>
+                <a href="#" class="text-apple-primary hover:underline px-2 py-1">Apple 维修</a>
+                <a href="#" class="text-apple-primary hover:underline px-2 py-1">账单和订阅</a>
+                <a href="#" class="text-apple-primary hover:underline px-2 py-1">iPhone 电池更换</a>
+            </div>
+        </section>
+
+        <!-- 产品支持卡片区 -->
+        <section class="mb-16">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+                <!-- iPhone -->
+                <a href="#" class="block group" aria-label="iPhone 支持">
+                    <div class="bg-apple-secondary rounded-xl p-5 h-full flex flex-col items-center text-center card-hover">
+                        <i class="fa fa-mobile text-4xl mb-3 text-apple-dark"></i>
+                        <h3 class="text-base font-medium mb-1">iPhone</h3>
+                        <p class="text-apple-gray text-xs">维修、电池、网络支持</p>
+                    </div>
+                </a>
+                <!-- Mac -->
+                <a href="#" class="block group" aria-label="Mac 支持">
+                    <div class="bg-apple-secondary rounded-xl p-5 h-full flex flex-col items-center text-center card-hover">
+                        <i class="fa fa-laptop text-4xl mb-3 text-apple-dark"></i>
+                        <h3 class="text-base font-medium mb-1">Mac</h3>
+                        <p class="text-apple-gray text-xs">设置、更新、备份帮助</p>
+                    </div>
+                </a>
+                <!-- iPad -->
+                <a href="#" class="block group" aria-label="iPad 支持">
+                    <div class="bg-apple-secondary rounded-xl p-5 h-full flex flex-col items-center text-center card-hover">
+                        <i class="fa fa-tablet text-4xl mb-3 text-apple-dark"></i>
+                        <h3 class="text-base font-medium mb-1">iPad</h3>
+                        <p class="text-apple-gray text-xs">配件、网络、设置帮助</p>
+                    </div>
+                </a>
+                <!-- Watch -->
+                <a href="#" class="block group" aria-label="Apple Watch 支持">
+                    <div class="bg-apple-secondary rounded-xl p-5 h-full flex flex-col items-center text-center card-hover">
+                        <i class="fa fa-clock-o text-4xl mb-3 text-apple-dark"></i>
+                        <h3 class="text-base font-medium mb-1">Watch</h3>
+                        <p class="text-apple-gray text-xs">配对、更新、维修</p>
+                    </div>
+                </a>
+                <!-- Vision -->
+                <a href="#" class="block group" aria-label="Vision 支持">
+                    <div class="bg-apple-secondary rounded-xl p-5 h-full flex flex-col items-center text-center card-hover">
+                        <i class="fa fa-vr-cardboard text-4xl mb-3 text-apple-dark"></i>
+                        <h3 class="text-base font-medium mb-1">Vision</h3>
+                        <p class="text-apple-gray text-xs">设置、使用、维修</p>
+                    </div>
+                </a>
+                <!-- 更多产品 -->
+                <a href="#" class="block group" aria-label="更多产品支持">
+                    <div class="bg-apple-secondary rounded-xl p-5 h-full flex flex-col items-center text-center card-hover">
+                        <i class="fa fa-th text-4xl mb-3 text-apple-dark"></i>
+                        <h3 class="text-base font-medium mb-1">更多产品</h3>
+                        <p class="text-apple-gray text-xs">AirPods、HomePod 等</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 重点服务模块 -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <!-- 我的设备 -->
+            <div class="bg-apple-secondary rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-apple">
+                        <i class="fa fa-user-circle-o text-4xl text-apple-primary"></i>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h2 class="text-xl font-bold mb-3">我的设备</h2>
+                    <p class="text-apple-gray mb-4 text-sm">查看已关联到您 Apple 账户的设备，获取专属支持。</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between bg-white p-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fa fa-mobile text-xl text-apple-dark mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-sm">iPhone 14 Pro</p>
+                                    <p class="text-apple-gray text-xs">已配对：AirPods Pro</p>
+                                </div>
+                            </div>
+                            <a href="#" class="text-apple-primary text-sm hover:underline">查看详情</a>
+                        </div>
+                        <a href="#" class="text-apple-primary text-sm hover:underline flex items-center">
+                            <i class="fa fa-plus-circle mr-1"></i> 添加其他设备
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AppleCare+ 服务计划 -->
+            <div class="bg-apple-secondary rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-apple">
+                        <i class="fa fa-shield text-4xl text-apple-primary"></i>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h2 class="text-xl font-bold mb-3">AppleCare+ 服务计划</h2>
+                    <p class="text-apple-gray mb-4 text-sm">获取不限次数的意外损坏保护维修，优先得到 Apple 专家的协助，还能享受更多权益。</p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#" class="inline-flex items-center px-4 py-2 bg-apple-primary text-white text-sm font-medium rounded-md hover:bg-opacity-90 transition-colors">
+                            查看保障状态
+                        </a>
+                        <a href="#" class="inline-flex items-center px-4 py-2 bg-white text-apple-primary text-sm font-medium rounded-md border border-apple-border hover:bg-apple-hover transition-colors">
+                            了解更多
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门支持主题 -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">热门支持主题</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 忘记密码 -->
+                <a href="#" class="block group" aria-label="忘记 Apple 账户密码">
+                    <div class="bg-white border border-apple-border rounded-xl p-6 h-full card-hover">
+                        <i class="fa fa-key text-3xl mb-4 text-apple-primary"></i>
+                        <h3 class="text-lg font-semibold mb-2">忘记 Apple 账户密码</h3>
+                        <p class="text-apple-gray text-sm">重置您的 Apple ID 密码，或找回您的 Apple ID。</p>
+                    </div>
+                </a>
+                <!-- Apple 维修 -->
+                <a href="#" class="block group" aria-label="Apple 维修">
+                    <div class="bg-white border border-apple-border rounded-xl p-6 h-full card-hover">
+                        <i class="fa fa-wrench text-3xl mb-4 text-apple-primary"></i>
+                        <h3 class="text-lg font-semibold mb-2">Apple 维修</h3>
+                        <p class="text-apple-gray text-sm">为您的 Apple 产品安排维修，或查看维修状态。</p>
+                    </div>
+                </a>
+                <!-- 账单和订阅 -->
+                <a href="#" class="block group" aria-label="账单和订阅">
+                    <div class="bg-white border border-apple-border rounded-xl p-6 h-full card-hover">
+                        <i class="fa fa-credit-card text-3xl mb-4 text-apple-primary"></i>
+                        <h3 class="text-lg font-semibold mb-2">账单和订阅</h3>
+                        <p class="text-apple-gray text-sm">管理您的 Apple 订阅服务、查看账单或更新付款方式。</p>
+                    </div>
+                </a>
+                <!-- 安全保障 -->
+                <a href="#" class="block group" aria-label="确保 Apple 账户的安全">
+                    <div class="bg-white border border-apple-border rounded-xl p-6 h-full card-hover">
+                        <i class="fa fa-lock text-3xl mb-4 text-apple-primary"></i>
+                        <h3 class="text-lg font-semibold mb-2">账户安全</h3>
+                        <p class="text-apple-gray text-sm">了解防护技巧，确保您的 Apple 账户和信息安全。</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 服务计划公告 -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">Apple 服务计划</h2>
+            <div class="bg-white border border-apple-border rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-apple-secondary">
+                            <tr>
+                                <th class="px-6 py-4 text-sm font-semibold text-apple-dark">服务计划</th>
+                                <th class="px-6 py-4 text-sm font-semibold text-apple-dark">适用产品</th>
+                                <th class="px-6 py-4 text-sm font-semibold text-apple-dark">详情</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-apple-border">
+                            <tr class="hover:bg-apple-hover transition-colors">
+                                <td class="px-6 py-4 text-sm">适用于“无法开机”问题的 Mac mini 服务计划</td>
+                                <td class="px-6 py-4 text-sm text-apple-gray">Mac mini (M1, 2020)</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="#" class="text-apple-primary hover:underline">了解更多</a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-apple-hover transition-colors">
+                                <td class="px-6 py-4 text-sm">适用于后置相机问题的 iPhone 14 Plus 服务计划</td>
+                                <td class="px-6 py-4 text-sm text-apple-gray">iPhone 14 Plus</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="#" class="text-apple-primary hover:underline">了解更多</a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-apple-hover transition-colors">
+                                <td class="px-6 py-4 text-sm">适用于“无声音”问题的 iPhone 12 服务计划</td>
+                                <td class="px-6 py-4 text-sm text-apple-gray">iPhone 12、iPhone 12 Pro</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="#" class="text-apple-primary hover:underline">了解更多</a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-apple-hover transition-colors">
+                                <td class="px-6 py-4 text-sm">15 英寸 MacBook Pro 电池召回计划</td>
+                                <td class="px-6 py-4 text-sm text-apple-gray">15 英寸 MacBook Pro (2015-2017)</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="#" class="text-apple-primary hover:underline">了解更多</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系支持区域 -->
+        <section id="contact" class="bg-apple-secondary rounded-2xl p-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="md:w-2/3">
+                    <h2 class="text-2xl font-bold mb-4">需要进一步帮助？</h2>
+                    <p class="text-apple-gray mb-6 text-sm max-w-lg">请告诉我们一些具体信息，我们会提供适用的解决方案。你可以通过电话、聊天、电子邮件等方式联系我们。</p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#" class="inline-flex items-center px-5 py-2.5 bg-apple-primary text-white text-sm font-medium rounded-md hover:bg-opacity-90 transition-colors">
+                            联系 Apple 支持
+                        </a>
+                        <a href="#" class="inline-flex items-center px-5 py-2.5 bg-white text-apple-primary text-sm font-medium rounded-md border border-apple-border hover:bg-apple-hover transition-colors">
+                            下载 Apple 支持 App
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <img src="https://picsum.photos/id/180/300/200" alt="Apple 支持专家" class="w-full max-w-xs rounded-lg shadow-apple">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-apple-secondary pt-12 pb-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 页脚导航网格 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mb-10">
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">商店与产品</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple Store 商店</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Mac</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">iPad</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">iPhone</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Watch</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">AirPods</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">服务与支持</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple ID</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">iCloud</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">账单与订阅</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">AppleCare+</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">维修与服务</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">联系支持</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">企业与教育</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 商务</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 教育</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 校园教务管理</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">Apple 开发者</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">App Store</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">关于 Apple</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">新闻room</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">可持续性</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">隐私</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">企业责任</a></li>
+                        <li><a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">联系 Apple</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 sm:col-span-3 md:col-span-2">
+                    <h3 class="text-xs font-semibold text-apple-dark uppercase tracking-wider mb-4">关注与订阅</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="微博">
+                            <i class="fa fa-weibo text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="微信">
+                            <i class="fa fa-wechat text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="YouTube">
+                            <i class="fa fa-youtube-play text-xl"></i>
+                        </a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors" aria-label="Twitter">
+                            <i class="fa fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="订阅 Apple 电子通讯" class="flex-1 px-3 py-2 border border-apple-border rounded-md focus:outline-none focus:ring-2 focus:ring-apple-primary focus:border-transparent text-sm bg-white">
+                        <button class="px-4 py-2 bg-apple-primary text-white text-sm font-medium rounded-md hover:bg-opacity-90 transition-colors whitespace-nowrap">
+                            订阅
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 页脚底部信息 -->
+            <div class="border-t border-apple-border pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <p class="text-apple-gray text-xs">© 2024 Apple Inc. 保留所有权利。</p>
+                    <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs">
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">隐私政策</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">使用条款</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">销售政策</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">法律信息</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">网站地图</a>
+                        <a href="#" class="text-apple-gray hover:text-apple-primary transition-colors">中国大陆</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 交互脚本 -->
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-sm');
+            } else {
+                header.classList.remove('shadow-sm');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 输入框聚焦效果
+        const searchInput = document.querySelector('input[placeholder^="描述您遇到的问题"]');
+        if (searchInput) {
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.classList.add('shadow-apple');
+            });
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.classList.remove('shadow-apple');
+            });
+        }
+    </script>
+</body>
+</html>
